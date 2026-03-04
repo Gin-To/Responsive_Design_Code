@@ -198,6 +198,58 @@ body.no-scroll {
   }
 }
 
+/* ===== OLYMPIA CARDS ===== */
+.olympia-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 0 auto;
+  padding: 0 40px;
+  max-width: 340px;
+}
+
+.olympia-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border: 2px solid #000B57;
+  border-bottom: none;
+  color: #000B57;
+}
+
+.olympia-card:first-child {
+  border-radius: 12px 12px 0 0;
+}
+
+.olympia-card:last-child {
+  border-bottom: 2px solid #000B57;
+  border-radius: 0 0 12px 12px;
+}
+
+.olympia-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.olympia-card-year {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.olympia-card-city {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.olympia-card-place {
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1;
+  color: #000B57;
+}
+
 /* ===== FOOTER ===== */
 .footer {
   border-top: 2px solid #000B57;
