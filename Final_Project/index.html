@@ -9,24 +9,63 @@
   </head>
   <body>
     <!-- ======= NAVIGATION ======= -->
-    <header>
+    <header class="header">
       <nav class="navbar">
-        <a href="#" class="logo">Kim Ho-Jun</a>
-        <button class="menu-toggle" aria-label="Menü öffnen">
-          <span class="bar"></span>
-          <span class="bar"></span>
-          <span class="bar"></span>
+        <a href="#" class="logo" aria-label="Kim Ho-Jun Startseite">
+          <img src="assets/icons/KIM_Logo_Navigation.svg" alt="KIM Logo" />
+        </a>
+
+        <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
+          <img src="assets/icons/Menu_Button.svg" alt="Menü öffnen" class="icon-menu" />
         </button>
-        <ul class="nav-links">
-          <li><a href="#hero">Start</a></li>
-          <li><a href="#about">Über mich</a></li>
-          <li><a href="#career">Karriere</a></li>
-          <li><a href="#achievements">Erfolge</a></li>
-          <li><a href="#gallery">Galerie</a></li>
-          <li><a href="#contact">Kontakt</a></li>
-        </ul>
       </nav>
     </header>
+
+    <!-- ======= MOBILE NAV PANEL (slides in from right) ======= -->
+    <div class="nav-panel">
+      <div class="nav-panel-header">
+        <a href="#" class="logo" aria-label="Kim Ho-Jun Startseite">
+          <img src="assets/icons/KIM_Logo_Navigation.svg" alt="KIM Logo" />
+        </a>
+
+        <button class="menu-close" aria-label="Menü schliessen">
+          <img src="assets/icons/Menu_Button_Kreuz.svg" alt="Menü schliessen" />
+        </button>
+      </div>
+
+      <ul class="nav-links">
+        <li><a href="#about">Kim Ho-Jun</a></li>
+        <li><a href="#achievements">Olympische Spiele</a></li>
+        <li><a href="#weltmeisterschaften">Weltmeisterschaften</a></li>
+        <li><a href="#contact">Kontakt</a></li>
+      </ul>
+    </div>
+    <div class="nav-overlay"></div>
+
+    <script>
+      const menuToggle = document.querySelector('.menu-toggle');
+      const menuClose = document.querySelector('.menu-close');
+      const navPanel = document.querySelector('.nav-panel');
+      const navOverlay = document.querySelector('.nav-overlay');
+      const navLinks = document.querySelectorAll('.nav-links a');
+
+      function openMenu() {
+        navPanel.classList.add('open');
+        navOverlay.classList.add('open');
+        document.body.classList.add('no-scroll');
+      }
+
+      function closeMenu() {
+        navPanel.classList.remove('open');
+        navOverlay.classList.remove('open');
+        document.body.classList.remove('no-scroll');
+      }
+
+      menuToggle.addEventListener('click', openMenu);
+      menuClose.addEventListener('click', closeMenu);
+      navOverlay.addEventListener('click', closeMenu);
+      navLinks.forEach(link => link.addEventListener('click', closeMenu));
+    </script>
 
     <main>
       <!-- ======= HERO BILD SECTION ======= -->
