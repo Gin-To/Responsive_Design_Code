@@ -429,7 +429,6 @@ h4 {
 /* ===== ABOUT SECTION ===== */
 .about {
   padding-top: 64px;
-  background-color: #F2F2F2;
 }
 
 .about .container {
@@ -451,7 +450,7 @@ h4 {
 }
 
 .about-text {
-  grid-column: 2 / -1;
+  grid-column: 2 / 6;
   margin-top: 128px;
 }
 
@@ -461,6 +460,17 @@ h4 {
 
 .about-text p {
   margin-top: 32px;
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.about-line {
+  grid-column: 2 / 6;
+  height: 2px;
+  background-color: #000B57;
+  margin-top: 64px;
 }
 
 /* ===== CAREER CIRCLE ===== */
@@ -468,23 +478,26 @@ h4 {
   position: relative;
   overflow: hidden;
   padding: 0;
-  background-color: #F2F2F2;
 }
 
-.career-line-top,
 .career-line-bottom {
   height: 0;
   border-top: 2px solid #000B57;
-  margin: 0 40px;
+  margin: 0 8px;
+  margin-left: calc(8px + (100% - 16px) / 6);
+  margin-right: calc(8px + (100% - 16px) / 6);
 }
 
 .career-circle-wrapper {
   position: relative;
-  width: 600px;
-  height: 600px;
-  margin: 40px auto;
-  /* Mobile: shift left so only right arc + active dot are visible */
-  margin-left: -250px;
+  width: 589px;
+  height: 589px;
+  /*
+    Center the circle on the 3rd column.
+  */
+  margin-left: -400px;
+  margin-top: 128px;
+  margin-bottom: 128px;
 }
 
 .career-circle-svg {
@@ -496,6 +509,7 @@ h4 {
 }
 
 /* Individual dot container — positioned via --angle custom property */
+/* radius = 270px to match SVG circle r=270 */
 .career-dot {
   position: absolute;
   top: 50%;
@@ -504,29 +518,29 @@ h4 {
   height: 0;
   transform:
     rotate(var(--angle))
-    translateY(-240px)
+    translateY(-270px)
     rotate(calc(-1 * var(--angle)));
 }
 
-/* Dot point (grey by default) */
+/* Dot point (grey by default) — 16px */
 .career-dot-point {
   display: block;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background-color: #B0B0C0;
+  background-color: #888793;
   position: absolute;
-  top: -7px;
-  left: -7px;
+  top: -8px;
+  left: -8px;
 }
 
-/* Active dot: larger, navy */
+/* Active dot: 32px, navy */
 .career-dot.active .career-dot-point {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   background-color: #000B57;
-  top: -12px;
-  left: -12px;
+  top: -16px;
+  left: -16px;
 }
 
 /* Year label — angled next to each dot */
@@ -536,7 +550,7 @@ h4 {
   left: -12px;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #B0B0C0;
+  color: #888793;
   white-space: nowrap;
   transform: rotate(-45deg);
   transform-origin: bottom left;
@@ -547,68 +561,74 @@ h4 {
 }
 
 /*
-  Info card next to the active dot (2010 at 120°).
-  At 120° on a r=240 circle from center (300,300):
-    x = 300 + sin(120°) × 240 = 300 + 208 = 508
-    y = 300 - cos(120°) × 240 = 300 + 120 = 420
-  Then offset 20px right of the dot.
+  Info card next to the active dot (2010 at 90° / 3 o'clock).
+  At 90° on r=270 circle from center (294.5, 294.5):
+    x = 294.5 + sin(90°) × 270 = 294.5 + 270 = 564.5
+    y = 294.5 - cos(90°) × 270 = 294.5 - 0 = 294.5
+  Then offset right of the 32px dot.
 */
 .career-info {
   position: absolute;
-  top: 420px;
-  left: 530px;
+  top: 278px;
+  left: 610px;
   white-space: nowrap;
 }
 
 .career-info-year {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: #000B57;
-  line-height: 1;
   font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 32px;
+  color: #000B57;
 }
 
 .career-info-event {
-  font-size: 0.875rem;
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
   color: #000B57;
-  margin-top: 6px;
+  margin-top: 8px;
 }
 
 .career-info-detail {
-  font-size: 0.875rem;
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
   color: #000B57;
 }
 
 /* ---- Desktop: show full circle centered ---- */
 @media (min-width: 768px) {
   .career-circle-wrapper {
-    width: 700px;
-    height: 700px;
+    width: 589px;
+    height: 589px;
     margin: 60px auto;
   }
 
-  .career-dot {
-    transform:
-      rotate(var(--angle))
-      translateY(-280px)
-      rotate(calc(-1 * var(--angle)));
-  }
-
-  /*
-    Desktop: r=280, center at (350,350).
-    2010 at 120°:
-      x = 350 + sin(120°) × 280 = 350 + 242 = 592
-      y = 350 - cos(120°) × 280 = 350 + 140 = 490
-  */
-  .career-info {
-    top: 490px;
-    left: 616px;
-  }
-
-  .career-line-top,
   .career-line-bottom {
     display: none;
   }
+}
+
+/* ===== OLYMPIA SECTION ===== */
+.olympia > .container {
+  padding-top: 128px;
+}
+
+.olympia > .container h1 {
+  grid-column: 2 / 6;
+  margin: 0;
+}
+
+.olympia > .container p {
+  grid-column: 2 / 6;
+  margin-top: 32px;
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
 /* ===== OLYMPIA CARDS ===== */
