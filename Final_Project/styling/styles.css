@@ -123,8 +123,7 @@ h4 {
 
 /* ===== HEADER / NAVIGATION ===== */
 .header {
-  position: sticky;
-  top: 0;
+  position: relative;
   z-index: 100;
   background-color: #F2F2F2;
   height: 129px;
@@ -405,6 +404,63 @@ h4 {
   .navbar {
     padding: 20px 40px;
   }
+}
+
+/* ===== HERO IMAGE ===== */
+.hero {
+  width: 100%;
+  height: 738px;
+  border-bottom: 2px solid #000B57;
+  overflow: hidden;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== ABOUT SECTION ===== */
+.about {
+  padding-top: 64px;
+  background-color: #F2F2F2;
+}
+
+.about .container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.about-image {
+  grid-column: 2 / 6;
+}
+
+.about-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-text {
+  grid-column: 2 / -1;
+  margin-top: 128px;
+}
+
+.about-text h1 {
+  margin: 0;
+}
+
+.about-text p {
+  margin-top: 32px;
 }
 
 /* ===== CAREER CIRCLE ===== */
