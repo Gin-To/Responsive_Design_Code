@@ -11,11 +11,100 @@ body {
   max-width: 407px;
   margin: 0 auto;
   background-color: #fff;
-  font-family: sans-serif;
+  font-family: "clother", sans-serif;
+  color: #000B57;
 }
 
 body.no-scroll {
   overflow: hidden;
+}
+
+/* ===== TYPOGRAPHY ===== */
+
+/* Headings — Manifold Extd CF Extra Bold (800) */
+h1 {
+  font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 32px;
+}
+
+h2 {
+  font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+h3 {
+  font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+h4 {
+  font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 26px;
+}
+
+/* Button text — Clother Bold */
+.btn-text {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+/* Fliesstext Big Bold */
+.text-big-bold {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+/* Fliesstext Big Regular */
+.text-big,
+p {
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+/* Fliesstext Small Bold */
+.text-small-bold {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* Fliesstext Small Regular */
+.text-small {
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+/* Footer Bold */
+.footer-text-bold {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+/* Footer Regular */
+.footer-text {
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 /* ===== HEADER / NAVIGATION ===== */
@@ -198,6 +287,154 @@ body.no-scroll {
   }
 }
 
+/* ===== CAREER CIRCLE ===== */
+.career {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  background-color: #f5f5f7;
+}
+
+.career-line-top,
+.career-line-bottom {
+  height: 0;
+  border-top: 2px solid #000B57;
+  margin: 0 40px;
+}
+
+.career-circle-wrapper {
+  position: relative;
+  width: 600px;
+  height: 600px;
+  margin: 40px auto;
+  /* Mobile: shift left so only right arc + active dot are visible */
+  margin-left: -250px;
+}
+
+.career-circle-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Individual dot container — positioned via --angle custom property */
+.career-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform:
+    rotate(var(--angle))
+    translateY(-240px)
+    rotate(calc(-1 * var(--angle)));
+}
+
+/* Dot point (grey by default) */
+.career-dot-point {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #B0B0C0;
+  position: absolute;
+  top: -7px;
+  left: -7px;
+}
+
+/* Active dot: larger, navy */
+.career-dot.active .career-dot-point {
+  width: 24px;
+  height: 24px;
+  background-color: #000B57;
+  top: -12px;
+  left: -12px;
+}
+
+/* Year label — angled next to each dot */
+.career-dot-year {
+  position: absolute;
+  top: -32px;
+  left: -12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #B0B0C0;
+  white-space: nowrap;
+  transform: rotate(-45deg);
+  transform-origin: bottom left;
+}
+
+.career-dot.active .career-dot-year {
+  display: none;
+}
+
+/*
+  Info card next to the active dot (2010 at 120°).
+  At 120° on a r=240 circle from center (300,300):
+    x = 300 + sin(120°) × 240 = 300 + 208 = 508
+    y = 300 - cos(120°) × 240 = 300 + 120 = 420
+  Then offset 20px right of the dot.
+*/
+.career-info {
+  position: absolute;
+  top: 420px;
+  left: 530px;
+  white-space: nowrap;
+}
+
+.career-info-year {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #000B57;
+  line-height: 1;
+  font-family: "manifold-extd-cf", sans-serif;
+}
+
+.career-info-event {
+  font-size: 0.875rem;
+  color: #000B57;
+  margin-top: 6px;
+}
+
+.career-info-detail {
+  font-size: 0.875rem;
+  color: #000B57;
+}
+
+/* ---- Desktop: show full circle centered ---- */
+@media (min-width: 768px) {
+  .career-circle-wrapper {
+    width: 700px;
+    height: 700px;
+    margin: 60px auto;
+  }
+
+  .career-dot {
+    transform:
+      rotate(var(--angle))
+      translateY(-280px)
+      rotate(calc(-1 * var(--angle)));
+  }
+
+  /*
+    Desktop: r=280, center at (350,350).
+    2010 at 120°:
+      x = 350 + sin(120°) × 280 = 350 + 242 = 592
+      y = 350 - cos(120°) × 280 = 350 + 140 = 490
+  */
+  .career-info {
+    top: 490px;
+    left: 616px;
+  }
+
+  .career-line-top,
+  .career-line-bottom {
+    display: none;
+  }
+}
+
 /* ===== OLYMPIA CARDS ===== */
 .olympia-cards {
   display: flex;
@@ -244,9 +481,10 @@ body.no-scroll {
 }
 
 .olympia-card-place {
-  font-size: 4rem;
-  font-weight: 900;
-  line-height: 1;
+  font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 32px;
   color: #000B57;
 }
 
@@ -287,11 +525,13 @@ body.no-scroll {
 
 .footer-contact-title {
   font-weight: 700;
-  font-size: 0.875rem;
+  font-size: 14px;
+  line-height: 18px;
 }
 
 .footer-email {
-  font-size: 0.875rem;
+  font-size: 14px;
+  line-height: 18px;
   color: #000B57;
   text-decoration: none;
 }
@@ -301,7 +541,8 @@ body.no-scroll {
 }
 
 .footer-location {
-  font-size: 0.875rem;
+  font-size: 14px;
+  line-height: 18px;
   margin-top: 8px;
 }
 
@@ -321,7 +562,8 @@ body.no-scroll {
 }
 
 .footer-legal a {
-  font-size: 0.75rem;
+  font-size: 12px;
+  line-height: 16px;
   color: #000B57;
   text-decoration: none;
 }
@@ -331,7 +573,8 @@ body.no-scroll {
 }
 
 .footer-copyright {
-  font-size: 0.75rem;
+  font-size: 12px;
+  line-height: 16px;
 }
 
 .footer-social {
@@ -349,8 +592,4 @@ body.no-scroll {
   display: block;
   height: 24px;
   width: auto;
-}
-
-h1 {
-  font-family: man;
 }
