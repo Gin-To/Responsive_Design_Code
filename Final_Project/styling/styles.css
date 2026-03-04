@@ -8,7 +8,7 @@
 }
 
 body {
-  max-width: 407px;
+  max-width: 402px;
   margin: 0 auto;
   background-color: #F2F2F2;
   font-family: "clother", sans-serif;
@@ -157,7 +157,7 @@ h4 {
   top: 0;
   bottom: 0;
   /*
-    407px viewport, 8px margin each side → 391px inner
+    402px viewport, 8px margin each side → 386px inner
     Each col+gutter unit = 391/6 = 65.17px
     After 2 units = 130.33px + 8px margin = 138.33px
     Minus half gutter (8px) = 130.33px from left edge
@@ -217,7 +217,7 @@ h4 {
   top: 0;
   right: 0;
   width: 100%;
-  max-width: 407px;
+  max-width: 402px;
   height: 100vh;
   background-color: #F2F2F2;
   z-index: 200;
@@ -320,7 +320,7 @@ h4 {
 .nav-links li a {
   display: block;
   width: 100%;
-  padding: 0 8px;
+  padding: 0px 32px;
   text-decoration: none;
   color: #000B57;
   font-family: "manifold-extd-cf", sans-serif;
@@ -336,7 +336,6 @@ h4 {
 /* Empty space below nav links fills remaining height */
 .nav-panel-empty {
   flex: 1;
-  border-bottom: 2px solid #000B57;
 }
 
 /* Dark overlay behind the panel */
@@ -441,6 +440,7 @@ h4 {
 
 .about-image {
   grid-column: 2 / 6;
+  border: #000B57 solid 2px;
 }
 
 .about-image img {
@@ -631,57 +631,176 @@ h4 {
   line-height: 1.4;
 }
 
+/* ===== WELTMEISTERSCHAFTEN SECTION ===== */
+.weltmeisterschaften > .container {
+  padding-top: 128px;
+}
+
+.weltmeisterschaften > .container h1 {
+  grid-column: 2 / 6;
+  margin: 0;
+}
+
+.weltmeisterschaften > .container p {
+  grid-column: 2 / 6;
+  margin-top: 32px;
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 /* ===== OLYMPIA CARDS ===== */
 .olympia-cards {
   display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin: 0 auto;
-  padding: 0 40px;
-  max-width: 340px;
+  justify-content: center;
+  padding: 0 8px;
+  margin-top: 64px;
 }
 
-.olympia-card {
+.card-stack {
+  position: relative;
+  width: 250px;
+  /* Height = front card 90 + back cards peeking above: 2 * 88 = 176 */
+  height: calc(90px + 176px);
+}
+
+/* Base card style — every card is a separate rounded rectangle */
+.card {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 90px;
+  border: 2px solid #000B57;
+  border-radius: 16px;
+  background-color: #F2F2F2;
+  box-sizing: border-box;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 24px;
-  border: 2px solid #000B57;
-  border-bottom: none;
-  color: #000B57;
+  padding: 0 24px;
 }
 
-.olympia-card:first-child {
-  border-radius: 12px 12px 0 0;
+/* Back card (1st/top): tallest — peeks 176px above bottom */
+.card-back {
+  height: 266px;
+  z-index: 1;
+  align-items: flex-start;
+  padding-top: 20px;
 }
 
-.olympia-card:last-child {
-  border-bottom: 2px solid #000B57;
-  border-radius: 0 0 12px 12px;
+/* Mid card (2nd): medium — peeks 88px above bottom */
+.card-mid {
+  height: 178px;
+  z-index: 2;
+  align-items: flex-start;
+  padding-top: 20px;
 }
 
-.olympia-card-info {
+/* Front card (3rd/bottom): shortest — flush with bottom */
+.card-front {
+  height: 90px;
+  z-index: 3;
+}
+
+/* For WM section with 5 cards */
+.card-fourth {
+  height: 356px;
+  z-index: 2;
+  align-items: flex-start;
+  padding-top: 20px;
+}
+
+.card-fifth {
+  height: 444px;
+  z-index: 1;
+  align-items: flex-start;
+  padding-top: 20px;
+}
+
+/* 5-card stack: tallest card is 444px */
+.card-stack-5 {
+  height: 444px;
+}
+
+/* Adjust z-index for 5-card stack */
+.card-stack-5 .card-back {
+  height: 266px;
+  z-index: 3;
+}
+
+.card-stack-5 .card-mid {
+  height: 178px;
+  z-index: 4;
+}
+
+.card-stack-5 .card-front {
+  height: 90px;
+  z-index: 5;
+}
+
+.card-info {
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
-.olympia-card-year {
-  font-size: 1rem;
-  font-weight: 500;
-}
-
-.olympia-card-city {
-  font-size: 1rem;
+.card-year {
+  font-family: "clother", sans-serif;
   font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000B57;
 }
 
-.olympia-card-place {
+.card-city {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  color: #000B57;
+}
+
+.card-place {
   font-family: "manifold-extd-cf", sans-serif;
   font-weight: 800;
   font-size: 48px;
   line-height: 32px;
   color: #000B57;
+}
+
+/* ===== BILDER (Section images) ===== */
+.bilder {
+  margin-top: 64px;
+  padding: 0 8px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.bilder img {
+  grid-column: 2 / 6;
+  width: 100%;
+  height: auto;
+  display: block;
+  border: #000B57 solid 2px;
+}
+
+.bilder-full {
+  margin-top: 64px;
+  margin-bottom: 64px;
+  width: 100%;
+  height: 604px;
+  border: 2px solid #000B57;
+  overflow: hidden;
+}
+
+.bilder-full img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ===== FOOTER ===== */
@@ -703,14 +822,19 @@ h4 {
   padding-right: 8px;
 }
 
-/* Vertical divider line between col 2 and 3 */
+/* Vertical divider line at the end of col 2 */
 .footer::after {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  /* 8px margin + 2 columns worth + gutter/2 */
-  left: calc(8px + (2 / 6) * (100% - 16px) + (2 * 16px / 6));
+  /*
+    8px margin + 2 col-widths + 1 gutter
+    col-width = (100% - 16px - 80px) / 6
+    = (100% - 96px) / 6
+    line = 8px + 2 * (100% - 96px) / 6 + 16px
+  */
+  left: calc(8px + 2 * (100% - 96px) / 6 + 16px);
   border-left: 2px solid #000B57;
   pointer-events: none;
 }
