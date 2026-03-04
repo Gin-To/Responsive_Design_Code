@@ -10,6 +10,7 @@
   <body>
     <!-- ======= NAVIGATION ======= -->
     <header class="header">
+      <div class="header-spacer"></div>
       <nav class="navbar">
         <a href="#" class="logo" aria-label="Kim Ho-Jun Startseite">
           <img src="assets/icons/KIM_Logo_Navigation.svg" alt="KIM Logo" />
@@ -24,13 +25,16 @@
     <!-- ======= MOBILE NAV PANEL (slides in from right) ======= -->
     <div class="nav-panel">
       <div class="nav-panel-header">
-        <a href="#" class="logo" aria-label="Kim Ho-Jun Startseite">
-          <img src="assets/icons/KIM_Logo_Navigation.svg" alt="KIM Logo" />
-        </a>
+        <div class="nav-panel-spacer"></div>
+        <div class="nav-panel-bar">
+          <a href="#" class="logo" aria-label="Kim Ho-Jun Startseite">
+            <img src="assets/icons/KIM_Logo_Navigation.svg" alt="KIM Logo" />
+          </a>
 
-        <button class="menu-close" aria-label="Menü schliessen">
-          <img src="assets/icons/Menu_Button_Kreuz.svg" alt="Menü schliessen" />
-        </button>
+          <button class="menu-close" aria-label="Menü schliessen">
+            <img src="assets/icons/Menu_Button_Kreuz.svg" alt="Menü schliessen" />
+          </button>
+        </div>
       </div>
 
       <ul class="nav-links">
@@ -39,6 +43,8 @@
         <li><a href="#weltmeisterschaften">Weltmeisterschaften</a></li>
         <li><a href="#contact">Kontakt</a></li>
       </ul>
+
+      <div class="nav-panel-empty"></div>
     </div>
     <div class="nav-overlay"></div>
 
@@ -256,20 +262,18 @@
 
     <!-- ======= FOOTER ======= -->
     <footer class="footer">
-      <!-- Top row: Logo + Contact info -->
-      <div class="footer-top">
+      <div class="footer-grid">
+        <!-- Top row -->
         <div class="footer-logo">
           <img src="assets/icons/KIM_Logo_footer.svg" alt="KIM Logo" />
         </div>
         <div class="footer-contact">
           <p class="footer-contact-title">Management & Medienanfragen</p>
-          <a href="mailto:management@kimhojun.com" class="footer-email">management@kimhojun.com</a>
-          <p class="footer-location">Seoul, Südkorea</p>
+          <p class="footer-contact-text">management@kimhojun.com</p>
+          <p class="footer-contact-text footer-location">Seoul, Südkorea</p>
         </div>
-      </div>
 
-      <!-- Bottom row: Legal links + Copyright + Social icons -->
-      <div class="footer-bottom">
+        <!-- Bottom row -->
         <div class="footer-legal">
           <a href="#">Impressum</a>
           <a href="#">Datenschutz</a>
