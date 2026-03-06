@@ -1357,41 +1357,28 @@ h4 {
 
   /* ===== OLYMPIA SECTION ===== */
   .olympia {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    gap: 20px;
-    padding: 0 50px;
-  }
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  padding: 0 50px;
+}
 
-  .olympia > .container {
-    grid-column: 1 / 6;
-    grid-row: 1;
-    padding-top: 128px;
-    padding-left: 0;
-    padding-right: 0;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
-  }
+.olympia > .container {
+  display: contents; /* Allows direct children to use the parent grid */
+}
 
-  .olympia > .container h1 {
-    grid-column: 1 / -1;
-  }
+.olympia h1 {
+  grid-column: 2 / 6;
+  align-self: end;
+  margin: 0;
+}
 
-  .olympia > .container p {
-    grid-column: 1 / -1;
-    font-size: 16px;
-    line-height: 20px;
-  }
-
-  .olympia-cards {
-    grid-column: 7 / 13;
-    grid-row: 1;
-    margin-top: 128px;
-    padding: 0;
-    justify-content: flex-end;
-    flex-direction: column;
-    align-items: stretch;
-  }
+.olympia-cards {
+  grid-column: 7 / 13;
+  grid-row: 1;
+  align-self: end;
+  margin-top: 0;
+}
 
   .card-stack {
     width: 100%;
