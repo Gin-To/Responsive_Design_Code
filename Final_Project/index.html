@@ -16,6 +16,14 @@
           <img src="assets/icons/KIM_Logo_Navigation.svg" alt="KIM Logo" />
         </a>
 
+        <!-- Desktop nav links (hidden on mobile) -->
+        <ul class="desktop-nav">
+          <li><a href="#about">Kim Ho-Jun</a></li>
+          <li><a href="#olympia">Olympische Spiele</a></li>
+          <li><a href="#weltmeisterschaften">Weltmeisterschaften</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+        </ul>
+
         <button class="menu-toggle" aria-label="Menü öffnen" aria-expanded="false">
           <img src="assets/icons/Menu_Button.svg" alt="Menü öffnen" class="icon-menu" />
         </button>
@@ -76,17 +84,27 @@
     <main>
       <!-- ======= HERO BILD SECTION ======= -->
       <section id="hero" class="hero">
-      
         <div class="hero-image">
-          <img src="assets/img/Header Bild Mobile.png" alt="Kim Ho-Jun beim Snowboarden auf einem verschneiten Berg mit dem Zitat Ride Beyond Limits im Hintergrund" />
+          <picture>
+            <source media="(min-width: 768px)" srcset="assets/img/Header Bild Desktop.png" />
+            <img src="assets/img/Header Bild Mobile.png" alt="Kim Ho-Jun beim Snowboarden auf einem verschneiten Berg mit dem Zitat Ride Beyond Limits im Hintergrund" />
+          </picture>
+          <div class="hero-text">
+            <h1>Ride<br>beyond<br>limits</h1>
+          </div>
         </div>
       </section>
 
-      <!-- ======= ABOUT SECTION ======= -->
-      <section id="about" class="about">
+      <!-- ======= ABOUT + CAREER WRAPPER ======= -->
+      <div class="about-career-wrapper">
+        <!-- ======= ABOUT SECTION ======= -->
+        <section id="about" class="about">
         <div class="container">
           <div class="about-image">
-            <img src="assets/img/Kim_HoJun_Portrait_Mobile.png" alt="Ganz Körper Porträt von Kim Ho-Jun mit snowboardschuhen">
+            <picture>
+              <source media="(min-width: 768px)" srcset="assets/img/Kim_HoJun_Portrait_Desktop.png" />
+              <img src="assets/img/Kim_HoJun_Portrait_Mobile.png" alt="Ganz Körper Porträt von Kim Ho-Jun mit snowboardschuhen">
+            </picture>
           </div>
           <div class="about-text">
             <h1>Kim<br>Ho-Jun</h1>
@@ -158,6 +176,7 @@
 
         <div class="career-line-bottom"></div>
       </section>
+      </div><!-- end about-career-wrapper -->
 
       <!-- ======= OLYMPISCHE SPIELE SECTION ======= -->
       <section id="olympia" class="olympia">
@@ -183,7 +202,7 @@
               </div>
               <span class="card-place">28</span>
             </div>
-            <div class="card card-front">
+            <div class="card card-front card-active">
               <div class="card-info">
                 <span class="card-year">2018</span>
                 <span class="card-city">Pyeongchang</span>
@@ -191,11 +210,22 @@
               <span class="card-place">24</span>
             </div>
           </div>
+          <!-- Card description (desktop only) -->
+          <div class="card-description">
+            <p class="card-description-title">Disziplin Halfpipe</p>
+            <p class="card-description-text">Die Olympischen Winterspiele in Südkorea sowie beste olympische Platzierung und ein besonderer Moment meiner Karriere.</p>
+          </div>
         </div>
 
         <div class="bilder">
-          <img src="assets/img/Bild_Snowboard_first_Mobile.png" alt="Kim Jo-Hun bei der Olympiade in Pyeongchang 2018 mit einem roten Anzug und einem weißen Helm, während er in der Halfpipe fährt">
-          <img src="assets/img/Bild_Snowboard_second_Mobile.png" alt="Kim Jo-Hun bei der Olympiade in Pyeongchang 2018 mit einem roten Anzug und einem weißen Helm, während er in der Halfpipe fährt">
+          <picture>
+            <source media="(min-width: 768px)" srcset="assets/img/Bild_Snowboard_first_Desktop.png" />
+            <img src="assets/img/Bild_Snowboard_first_Mobile.png" alt="Kim Jo-Hun bei der Olympiade in Pyeongchang 2018 mit einem roten Anzug und einem weißen Helm, während er in der Halfpipe fährt">
+          </picture>
+          <picture>
+            <source media="(min-width: 768px)" srcset="assets/img/Bild_Snowboard_second_Desktop.png" />
+            <img src="assets/img/Bild_Snowboard_second_Mobile.png" alt="Kim Jo-Hun bei der Olympiade in Pyeongchang 2018 mit einem roten Anzug und einem weißen Helm, während er in der Halfpipe fährt">
+          </picture>
         </div>
       </section>
 
@@ -248,7 +278,10 @@
         </div>
 
         <div class="bilder-full">
-          <img src="assets/img/Halfpipe_Bild_Mobile.png" alt="Kim Ho-Jun bei den Weltmeisterschaften im Halfpipe-Wettbewerb, wie er in der Halfpipe fährt">
+          <picture>
+            <source media="(min-width: 768px)" srcset="assets/img/Halfpipe_Bild_Desktop.png" />
+            <img src="assets/img/Halfpipe_Bild_Mobile.png" alt="Kim Ho-Jun bei den Weltmeisterschaften im Halfpipe-Wettbewerb, wie er in der Halfpipe fährt">
+          </picture>
         </div>
       </section>
 
