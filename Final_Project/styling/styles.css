@@ -473,14 +473,16 @@ h4 {
   margin-right: calc(8px + (100% - 16px) / 6);
 }
 
+/* 
+  Circle wrapper: 589×589.
+  Center of the circle = left edge of the viewport.
+  margin-left: -294.5px moves the 589px box so its center sits at x=0.
+*/
 .career-circle-wrapper {
   position: relative;
   width: 589px;
   height: 589px;
-  /*
-    Center the circle on the 3rd column.
-  */
-  margin-left: -400px;
+  margin-left: -294.5px;
   margin-top: 128px;
   margin-bottom: 128px;
 }
@@ -493,95 +495,91 @@ h4 {
   height: 100%;
 }
 
-/* Individual dot container — positioned via --angle custom property */
-/* radius = 270px to match SVG circle r=270 */
+/* ===== DOT POINTS ===== */
+/* Each dot starts at the center (50%, 50%) then gets pushed out to the circle edge */
 .career-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #888793;
+  transform:
+    rotate(var(--angle))
+    translateX(270px)
+    rotate(calc(-1 * var(--angle)))
+    translate(-50%, -50%);
+}
+
+.career-dot.active {
+  width: 32px;
+  height: 32px;
+  background-color: #000B57;
+}
+
+/* ===== TEXT LABELS ===== */
+/*
+  Each label starts at the center of the circle (top:50%, left:50%),
+  then gets pushed outward to the circle edge at its --angle,
+  then the inner text gets rotated by --text-rotate.
+*/
+.career-label {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 0;
   height: 0;
+  /* Step 1: rotate to the angle position on the circle
+     Step 2: translate outward by the radius (270px)
+     Step 3: counter-rotate so the container is back to 0° */
   transform:
     rotate(var(--angle))
-    translateY(-270px)
+    translateX(270px)
     rotate(calc(-1 * var(--angle)));
 }
 
-/* Dot point (grey by default) — 16px */
-.career-dot-point {
-  display: block;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background-color: #888793;
-  position: absolute;
-  top: -8px;
-  left: -8px;
-}
-
-/* Active dot: 32px, navy */
-.career-dot.active .career-dot-point {
-  width: 32px;
-  height: 32px;
-  background-color: #000B57;
-  top: -16px;
-  left: -16px;
-}
-
-/* Year label — angled next to each dot */
-.career-dot-year {
-  position: absolute;
-  top: -32px;
-  left: -12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #888793;
+/* The inner wrapper gets the final text rotation */
+.career-label-inner {
+  transform: rotate(var(--text-rotate));
+  transform-origin: 0 0;
+  padding-left: 14px;
   white-space: nowrap;
-  transform: rotate(-45deg);
-  transform-origin: bottom left;
 }
 
-.career-dot.active .career-dot-year {
+.career-label-year {
+  display: block;
+  font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 1;
+  color: #888793;
+}
+
+/* Detail text hidden by default — only shows on active */
+.career-label-detail {
   display: none;
 }
 
-/*
-  Info card next to the active dot (2010 at 90° / 3 o'clock).
-  At 90° on r=270 circle from center (294.5, 294.5):
-    x = 294.5 + sin(90°) × 270 = 294.5 + 270 = 564.5
-    y = 294.5 - cos(90°) × 270 = 294.5 - 0 = 294.5
-  Then offset right of the 32px dot.
-*/
-.career-info {
-  position: absolute;
-  top: 278px;
-  left: 610px;
-  white-space: nowrap;
+.career-label-detail p {
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #000B57;
+  margin: 0;
 }
 
-.career-info-year {
-  font-family: "manifold-extd-cf", sans-serif;
-  font-weight: 800;
+/* ===== ACTIVE LABEL (2010 at 90°) ===== */
+.career-label.active .career-label-year {
   font-size: 24px;
   line-height: 32px;
   color: #000B57;
 }
 
-.career-info-event {
-  font-family: "clother", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #000B57;
-  margin-top: 8px;
-}
-
-.career-info-detail {
-  font-family: "clother", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #000B57;
+.career-label.active .career-label-detail {
+  display: block;
+  margin-top: 4px;
 }
 
 /* ===== OLYMPIA SECTION ===== */
@@ -1146,8 +1144,8 @@ h4 {
   /* ===== ABOUT + CAREER COMBINED LAYOUT ===== */
   /*
     Desktop: about-career-wrapper is a 12-col grid.
-    Career circle on the left (cols 1-6),
-    About (portrait+text) on the right (cols 7-12)
+    Career circle on the left (cols 1-7),
+    About (text+portrait) on the right (cols 8-12)
   */
   .about-career-wrapper {
     display: grid;
@@ -1159,7 +1157,7 @@ h4 {
 
   /* Career takes left half */
   .career {
-    grid-column: 1 / 7;
+    grid-column: 1 / 8;
     grid-row: 1;
     overflow: visible;
     display: flex;
@@ -1169,19 +1167,50 @@ h4 {
   }
 
   .career-circle-wrapper {
+    width: 794.84px;
+    height: 794.84px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 64px;
     margin-bottom: 64px;
   }
 
+  /* Desktop orbit radius = 794.84 / 589 * 270 ≈ 364px */
+  .career-dot,
+  .career-label {
+    transform:
+      rotate(var(--angle))
+      translateX(364px)
+      rotate(calc(-1 * var(--angle)));
+  }
+
+  .career-dot {
+    transform:
+      rotate(var(--angle))
+      translateX(364px)
+      rotate(calc(-1 * var(--angle)))
+      translate(-50%, -50%);
+  }
+
+  /* Grey dots: 32px on desktop */
+  .career-dot {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Active dot: 64px on desktop */
+  .career-dot.active {
+    width: 64px;
+    height: 64px;
+  }
+
   .career-line-bottom {
     display: none;
   }
 
-  /* About takes right half */
+  /* About takes right side, starting at col 8 */
   .about {
-    grid-column: 7 / 13;
+    grid-column: 8 / 13;
     grid-row: 1;
     padding-top: 0;
   }
@@ -1189,18 +1218,21 @@ h4 {
   .about .container {
     padding-left: 0;
     padding-right: 0;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: 20px;
+  }
+
+  /* Reorder: text first, image second on desktop */
+  .about-text {
+    grid-column: 1 / -1;
+    order: 1;
+    margin-top: 64px;
   }
 
   .about-image {
     grid-column: 1 / -1;
-    margin-top: 64px;
-  }
-
-  .about-text {
-    grid-column: 1 / -1;
-    margin-top: 64px;
+    order: 2;
+    margin-top: 32px;
   }
 
   .about-text h1 {
@@ -1210,6 +1242,7 @@ h4 {
 
   .about-line {
     grid-column: 1 / -1;
+    order: 3;
   }
 
   /* ===== OLYMPIA SECTION ===== */

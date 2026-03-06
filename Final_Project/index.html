@@ -118,56 +118,101 @@
       <!-- ======= CAREER Kreisanimation SECTION ======= -->
       <section id="career" class="career">
         <div class="career-circle-wrapper">
+          <!-- The SVG circle -->
           <svg class="career-circle-svg" viewBox="0 0 589 589" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="294.5" cy="294.5" r="270" fill="none" stroke="#888793" stroke-width="1.5" />
+            <circle cx="294.5" cy="294.5" r="270" fill="none" stroke="#888793" stroke-width="1" />
           </svg>
 
-          <!-- Year dots clockwise starting from 2010 at 90° (3 o'clock) -->
-          <div class="career-dot active" data-year="2010" style="--angle: 90deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2010</span>
+          <!-- DOT POINTS only (no text inside) -->
+          <div class="career-dot" data-year="2006" style="--angle: 315deg;"></div>
+          <div class="career-dot" data-year="2007" style="--angle: 0deg;"></div>
+          <div class="career-dot" data-year="2009" style="--angle: 45deg;"></div>
+          <div class="career-dot active" data-year="2010" style="--angle: 90deg;"></div>
+          <div class="career-dot" data-year="2014" style="--angle: 135deg;"></div>
+          <div class="career-dot" data-year="2015" style="--angle: 180deg;"></div>
+          <div class="career-dot" data-year="2017" style="--angle: 225deg;"></div>
+          <div class="career-dot" data-year="2018" style="--angle: 270deg;"></div>
+
+          <!-- TEXT LABELS: each starts at center, then rotate + translate outward -->
+          <!-- The --angle puts it on the circle, --text-rotate rotates the text itself -->
+          <div class="career-label" data-year="2006" style="--angle: 315deg; --text-rotate: 135deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2006</span>
+              <div class="career-label-detail">
+                <p>Erstes internationales Rennen</p>
+                <p>bei den Junioren-WM, Platz 10</p>
+              </div>
+            </div>
           </div>
 
-          <div class="career-dot" data-year="2014" style="--angle: 135deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2014</span>
+          <div class="career-label" data-year="2007" style="--angle: 0deg; --text-rotate: 90deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2007</span>
+              <div class="career-label-detail">
+                <p>Weltcup-Debüt</p>
+                <p>Platz 19</p>
+              </div>
+            </div>
           </div>
 
-          <div class="career-dot" data-year="2015" style="--angle: 180deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2015</span>
+          <div class="career-label" data-year="2009" style="--angle: 45deg; --text-rotate: 45deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2009</span>
+              <div class="career-label-detail">
+                <p>Silbermedaille bei der</p>
+                <p>Winter-Universiade (Halfpipe)</p>
+              </div>
+            </div>
           </div>
 
-          <div class="career-dot" data-year="2017" style="--angle: 225deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2017</span>
+          <div class="career-label active" data-year="2010" style="--angle: 90deg; --text-rotate: 0deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2010</span>
+              <div class="career-label-detail">
+                <p>Olympische Winterspiele</p>
+                <p>Vancouver – 26. Platz</p>
+              </div>
+            </div>
           </div>
 
-          <div class="career-dot" data-year="2018" style="--angle: 270deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2018</span>
+          <div class="career-label" data-year="2014" style="--angle: 135deg; --text-rotate: -45deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2014</span>
+              <div class="career-label-detail">
+                <p>Olympische Winterspiele</p>
+                <p>Sotschi – 28. Platz</p>
+              </div>
+            </div>
           </div>
 
-          <div class="career-dot" data-year="2006" style="--angle: 315deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2006</span>
+          <div class="career-label" data-year="2015" style="--angle: 180deg; --text-rotate: -90deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2015</span>
+              <div class="career-label-detail">
+                <p>Südkoreanischer Meister</p>
+                <p>in Halfpipe</p>
+              </div>
+            </div>
           </div>
 
-          <div class="career-dot" data-year="2007" style="--angle: 0deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2007</span>
+          <div class="career-label" data-year="2017" style="--angle: 225deg; --text-rotate: -135deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2017</span>
+              <div class="career-label-detail">
+                <p>Fünfter bei den</p>
+                <p>Winter-Asienspielen</p>
+              </div>
+            </div>
           </div>
 
-          <div class="career-dot" data-year="2009" style="--angle: 45deg;">
-            <span class="career-dot-point"></span>
-            <span class="career-dot-year">2009</span>
-          </div>
-
-          <!-- Info card for the active year -->
-          <div class="career-info">
-            <h2 class="career-info-year">2010</h2>
-            <p class="career-info-event">Olympische Winterspiele</p>
-            <p class="career-info-detail">Vancouver – 26. Platz</p>
+          <div class="career-label" data-year="2018" style="--angle: 270deg; --text-rotate: 180deg;">
+            <div class="career-label-inner">
+              <span class="career-label-year">2018</span>
+              <div class="career-label-detail">
+                <p>Letzter Weltcup-Start</p>
+                <p>und Karriereende</p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -284,8 +329,8 @@
 
 
     <!-- ======= FOOTER ======= -->
-    <footer class="footer">
-      <div class="footer-grid">
+    <footer id="contact" class="footer">
+      <div class="footer-grid"> 
         <!-- Top row -->
         <div class="footer-logo">
           <img src="assets/icons/KIM_Logo_footer.svg" alt="KIM Logo" />
