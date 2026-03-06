@@ -947,7 +947,7 @@ h4 {
    DESKTOP LAYOUT
    12 columns | margin 50px | gutter 20px
    ========================================================== */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
 
   /* ===== BASE ===== */
   body {
