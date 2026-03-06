@@ -475,14 +475,15 @@ h4 {
 
 /* 
   Circle wrapper: 589×589.
-  Center of the circle = left edge of the viewport.
-  margin-left: -294.5px moves the 589px box so its center sits at x=0.
+  Center positioned so active text (at 270px + 14px padding from center)
+  aligns with the 4th grid column (209px from viewport left).
+  center_x = 209 - 270 - 14 = -75px → margin-left = -75 - 294.5 = -369.5px
 */
 .career-circle-wrapper {
   position: relative;
   width: 589px;
   height: 589px;
-  margin-left: -294.5px;
+  margin-left: -395px;
   margin-top: 128px;
   margin-bottom: 128px;
 }
@@ -541,9 +542,8 @@ h4 {
 
 /* The inner wrapper gets the final text rotation */
 .career-label-inner {
-  transform: rotate(var(--text-rotate));
+  transform: rotate(var(--text-rotate)) translate(14px, -7px);
   transform-origin: 0 0;
-  padding-left: 14px;
   white-space: nowrap;
 }
 
@@ -571,6 +571,10 @@ h4 {
 }
 
 /* ===== ACTIVE LABEL (2010 at 90°) ===== */
+.career-label.active .career-label-inner {
+  transform: translateX(39.5px) translateY(-16px);
+}
+
 .career-label.active .career-label-year {
   font-size: 24px;
   line-height: 32px;
@@ -952,6 +956,57 @@ h4 {
     max-width: 100%;
   }
 
+  /* ===== TYPOGRAPHY ===== */
+  h1 {
+    font-size: 48px;
+    line-height: 48px;
+  }
+
+  h2 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  h3 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  h4 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  /* Button */
+  .btn-text {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  /* Fliesstext Large Bold */
+  .text-big-bold {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  /* Fliesstext Large Regular */
+  .text-big-regular {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  /* Fliesstext Standard Bold */
+  .text-small-bold {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  /* Fliesstext Standard Regular */
+  .text-small {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
   /* ===== GRID: 12 columns, 50px margin, 20px gutter ===== */
   .container {
     padding-left: 50px;
@@ -1166,6 +1221,7 @@ h4 {
     justify-content: center;
   }
 
+  /* Desktop career overrides */
   .career-circle-wrapper {
     width: 794.84px;
     height: 794.84px;
@@ -1175,16 +1231,13 @@ h4 {
     margin-bottom: 64px;
   }
 
-  /* Desktop orbit radius = 794.84 / 589 * 270 ≈ 364px */
-  .career-dot,
-  .career-label {
-    transform:
-      rotate(var(--angle))
-      translateX(364px)
-      rotate(calc(-1 * var(--angle)));
+  .career-circle-svg circle {
+    stroke-width: 4;
   }
 
   .career-dot {
+    width: 32px;
+    height: 32px;
     transform:
       rotate(var(--angle))
       translateX(364px)
@@ -1192,16 +1245,39 @@ h4 {
       translate(-50%, -50%);
   }
 
-  /* Grey dots: 32px on desktop */
-  .career-dot {
-    width: 32px;
-    height: 32px;
-  }
-
-  /* Active dot: 64px on desktop */
   .career-dot.active {
     width: 64px;
     height: 64px;
+  }
+
+  .career-label {
+    transform:
+      rotate(var(--angle))
+      translateX(364px)
+      rotate(calc(-1 * var(--angle)));
+  }
+
+  .career-label-inner {
+    transform: rotate(var(--text-rotate)) translate(26px, -9px);
+  }
+
+  .career-label-year {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .career-label.active .career-label-inner {
+    transform: translateX(51px) translateY(-22px);
+  }
+
+  .career-label.active .career-label-year {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .career-label-detail p {
+    font-size: 16px;
+    line-height: 20px;
   }
 
   .career-line-bottom {
@@ -1235,9 +1311,9 @@ h4 {
     margin-top: 32px;
   }
 
-  .about-text h1 {
-    font-size: 48px;
-    line-height: 48px;
+  .about-text p {
+    font-size: 16px;
+    line-height: 20px;
   }
 
   .about-line {
@@ -1269,6 +1345,8 @@ h4 {
 
   .olympia > .container p {
     grid-column: 1 / -1;
+    font-size: 16px;
+    line-height: 20px;
   }
 
   .olympia-cards {
@@ -1360,6 +1438,8 @@ h4 {
 
   .weltmeisterschaften > .container p {
     grid-column: 1 / -1;
+    font-size: 16px;
+    line-height: 20px;
   }
 
   .weltmeisterschaften .olympia-cards {
