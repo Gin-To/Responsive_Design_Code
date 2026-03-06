@@ -965,8 +965,11 @@ h4 {
   /* ===== HEADER / NAVIGATION ===== */
   .header {
     height: auto;
-    border-top: 2px solid #000B57;
-    border-bottom: 2px solid #000B57;
+    border-top: none;
+    border-bottom: none;
+    display: block;
+    padding: 0 50px;
+    background-color: #F2F2F2;
   }
 
   /* Hide mobile-only spacer */
@@ -975,17 +978,28 @@ h4 {
   }
 
   .navbar {
+    display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 20px;
-    padding: 0 50px;
-    height: 64px;
+    gap: 0;
+    padding: 0;
+    height: 71px;
     position: relative;
+    flex: none;
+    border: 4px solid #000B57;
   }
 
-  /* Logo in cols 1-2 */
+  /* Logo area: cols 1-3, centered, border at end of col 3 */
   .navbar .logo {
-    grid-column: 1 / 3;
-    justify-self: start;
+    grid-column: 1 / 4;
+    border-right: 4px solid #000B57;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar .logo img {
+    height: 34px;
   }
 
   /* Hide burger button */
@@ -1004,6 +1018,7 @@ h4 {
     justify-content: center;
     position: relative;
     height: 100%;
+    border-left: 4px solid #000B57;
   }
 
   .desktop-nav li:nth-child(1) {
@@ -1020,6 +1035,7 @@ h4 {
 
   .desktop-nav li:nth-child(4) {
     grid-column: 11 / 13;
+    border-right: 4px solid #000B57;
   }
 
   .desktop-nav li a {
@@ -1043,14 +1059,6 @@ h4 {
 
   .navbar::after {
     display: none;
-  }
-
-  /* Vertical lines via left border on nav items */
-  .desktop-nav li:nth-child(1),
-  .desktop-nav li:nth-child(2),
-  .desktop-nav li:nth-child(3),
-  .desktop-nav li:nth-child(4) {
-    border-left: 2px solid #000B57;
   }
 
   /* Hide mobile nav panel & overlay on desktop */
