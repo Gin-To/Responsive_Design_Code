@@ -486,6 +486,7 @@ h4 {
   margin-left: -395px;
   margin-top: 128px;
   margin-bottom: 128px;
+  transition: transform 0.6s ease;
 }
 
 .career-circle-svg {
@@ -511,6 +512,7 @@ h4 {
     translateX(270px)
     rotate(calc(-1 * var(--angle)))
     translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease, background-color 0.4s ease;
 }
 
 .career-dot.active {
@@ -545,6 +547,7 @@ h4 {
   transform: rotate(var(--text-rotate)) translate(14px, -7px);
   transform-origin: 0 0;
   white-space: nowrap;
+  transition: transform 0.4s ease;
 }
 
 .career-label-year {
@@ -554,11 +557,15 @@ h4 {
   font-size: 14px;
   line-height: 1;
   color: #888793;
+  transition: font-size 0.4s ease, line-height 0.4s ease, color 0.4s ease;
 }
 
 /* Detail text hidden by default — only shows on active */
 .career-label-detail {
-  display: none;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.4s ease, max-height 0.4s ease;
 }
 
 .career-label-detail p {
@@ -582,7 +589,8 @@ h4 {
 }
 
 .career-label.active .career-label-detail {
-  display: block;
+  opacity: 1;
+  max-height: 100px;
   margin-top: 4px;
 }
 
