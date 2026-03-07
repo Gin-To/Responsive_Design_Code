@@ -8,7 +8,7 @@
 }
 
 body {
-  max-width: 402px;
+  max-width: 100%;
   margin: 0 auto;
   background-color: #F2F2F2;
   font-family: "clother", sans-serif;
@@ -228,7 +228,7 @@ h4 {
   top: 0;
   right: 0;
   width: 100%;
-  max-width: 402px;
+  max-width: 100%;
   height: 100vh;
   background-color: #F2F2F2;
   z-index: 200;
@@ -371,7 +371,7 @@ h4 {
 /* ===== HERO IMAGE ===== */
 .hero {
   width: 100%;
-  height: 738px;
+  height: auto;
   border-bottom: 2px solid #000B57;
   overflow: hidden;
 }
@@ -634,7 +634,7 @@ h4 {
 
 .card-stack {
   position: relative;
-  width: 250px;
+  width: min(250px, 65vw);
   /* Height = front card 90 + back cards peeking above: 2 * 88 = 176 */
   height: calc(90px + 176px);
 }
@@ -651,25 +651,68 @@ h4 {
   background-color: #F2F2F2;
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 0 24px;
+  overflow: hidden;
+}
+
+/* Top row: year/city + place number */
+.card-top {
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
+  width: 100%;
+  min-height: 90px;
+  flex-shrink: 0;
+}
+
+/* Detail section: hidden by default */
+.card-detail {
+  display: none;
+  border-top: 2px solid #000B57;
+  padding-top: 12px;
+  margin-top: 0;
+  width: 100%;
+}
+
+.card-detail-title {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000B57;
+  margin: 0;
+}
+
+.card-detail-text {
+  font-family: "clother", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #000B57;
+  margin: 4px 0 0 0;
+}
+
+/* Active card: show detail + red border */
+.card.card-active {
+  border-color: #FE1413;
+}
+
+.card.card-active .card-detail {
+  display: block;
 }
 
 /* Back card (1st/top): tallest — peeks 176px above bottom */
 .card-back {
   height: 266px;
   z-index: 1;
-  align-items: flex-start;
-  padding-top: 20px;
 }
 
 /* Mid card (2nd): medium — peeks 88px above bottom */
 .card-mid {
   height: 178px;
   z-index: 2;
-  align-items: flex-start;
-  padding-top: 20px;
 }
 
 /* Front card (3rd/bottom): shortest — flush with bottom */
@@ -682,15 +725,11 @@ h4 {
 .card-fourth {
   height: 356px;
   z-index: 2;
-  align-items: flex-start;
-  padding-top: 20px;
 }
 
 .card-fifth {
   height: 444px;
   z-index: 1;
-  align-items: flex-start;
-  padding-top: 20px;
 }
 
 /* 5-card stack: tallest card is 444px */
@@ -744,16 +783,6 @@ h4 {
   color: #000B57;
 }
 
-/* Active card (desktop highlight) */
-.card-active {
-  border-color: #000B57;
-}
-
-/* Card description — hidden on mobile */
-.card-description {
-  display: none;
-}
-
 /* ===== BILDER (Section images) ===== */
 .bilder {
   margin-top: 64px;
@@ -785,7 +814,7 @@ h4 {
   margin-top: 64px;
   margin-bottom: 64px;
   width: 100%;
-  height: 604px;
+  height: clamp(400px, 150vw, 604px);
   border: 2px solid #000B57;
   overflow: hidden;
 }
@@ -949,14 +978,254 @@ h4 {
 }
 
 /* ==========================================================
+   TABLET LAYOUT (600px – 1249px)
+   Stacked like mobile, but desktop sizes for fonts/circle/cards
+   ========================================================== */
+@media (min-width: 600px) {
+
+  /* ===== TYPOGRAPHY — desktop sizes ===== */
+  h1 {
+    font-size: 48px;
+    line-height: 48px;
+  }
+
+  h2 {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  h3 {
+    font-size: 28px;
+    line-height: 36px;
+  }
+
+  h4 {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  /* ===== GRID — wider margins & gutters ===== */
+  .container {
+    padding-left: 50px;
+    padding-right: 50px;
+    gap: 20px;
+  }
+
+  /* ===== HEADER — desktop border thickness ===== */
+  .header {
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+  }
+
+  .header-spacer {
+    border-bottom-width: 4px;
+  }
+
+  .navbar::before {
+    border-left-width: 4px;
+  }
+
+  .navbar::after {
+    border-left-width: 4px;
+  }
+
+  /* ===== ABOUT — desktop sizes, stacked ===== */
+  .about-image {
+    border-width: 4px;
+  }
+
+  .about-text p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .about-line {
+    height: 4px;
+  }
+
+  /* ===== CAREER CIRCLE — desktop size ===== */
+  .career-circle-wrapper {
+    width: 794.84px;
+    height: 794.84px;
+    margin-left: -50%;
+  }
+
+  .career-circle-svg circle {
+    stroke-width: 4;
+  }
+
+  .career-dot {
+    width: 32px;
+    height: 32px;
+    transform:
+      rotate(var(--angle))
+      translateX(364px)
+      rotate(calc(-1 * var(--angle)))
+      translate(-50%, -50%);
+  }
+
+  .career-dot.active {
+    width: 64px;
+    height: 64px;
+  }
+
+  .career-label {
+    transform:
+      rotate(var(--angle))
+      translateX(364px)
+      rotate(calc(-1 * var(--angle)));
+  }
+
+  .career-label-inner {
+    transform: rotate(var(--text-rotate)) translate(26px, -9px);
+  }
+
+  .career-label-year {
+    font-size: 22px;
+    line-height: 30px;
+  }
+
+  .career-label.active .career-label-inner {
+    transform: translateX(51px) translateY(-22px);
+  }
+
+  .career-label.active .career-label-year {
+    font-size: 36px;
+    line-height: 44px;
+  }
+
+  .career-label-detail p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .career-line-bottom {
+    border-top-width: 4px;
+  }
+
+  /* ===== CARDS — desktop sizes, stacked ===== */
+  .olympia-cards {
+    padding: 0 50px;
+  }
+
+  .card-stack {
+    width: min(547px, calc(100vw - 100px));
+    height: 384px;
+    margin: 0 auto;
+  }
+
+  .card {
+    border-width: 4px;
+    height: 128px;
+    padding: 0 24px;
+  }
+
+  .card-top {
+    min-height: 128px;
+  }
+
+  .card-detail {
+    border-top-width: 4px;
+  }
+
+  .card-back {
+    height: 384px;
+  }
+
+  .card-mid {
+    height: 256px;
+  }
+
+  .card-front {
+    height: 128px;
+  }
+
+  .card-stack-5 {
+    height: 640px;
+  }
+
+  .card-stack-5 .card-fifth {
+    height: 640px;
+    padding: 0 24px;
+  }
+
+  .card-stack-5 .card-fourth {
+    height: 512px;
+    padding: 0 24px;
+  }
+
+  .card-stack-5 .card-back {
+    height: 384px;
+  }
+
+  .card-stack-5 .card-mid {
+    height: 256px;
+  }
+
+  .card-stack-5 .card-front {
+    height: 128px;
+  }
+
+  .card-place {
+    font-size: 65px;
+    line-height: 48px;
+  }
+
+  .card-year {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .card-city {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  /* ===== OLYMPIA / WM — text sizes ===== */
+  .olympia > .container p,
+  .weltmeisterschaften > .container p {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  /* ===== BILDER — desktop borders ===== */
+  .bilder {
+    padding: 0 50px;
+    gap: 20px;
+  }
+
+  .bilder picture {
+    border-width: 4px;
+  }
+
+  .bilder-full {
+    height: clamp(500px, 70vw, 1017px);
+    border-width: 4px;
+  }
+
+  /* ===== FOOTER — desktop borders ===== */
+  .footer {
+    border-top-width: 4px;
+    border-bottom-width: 4px;
+  }
+
+  .footer-grid {
+    padding-left: 50px;
+    padding-right: 50px;
+    gap: 20px;
+  }
+}
+
+/* ==========================================================
    DESKTOP LAYOUT
    12 columns | margin 50px | gutter 20px
    ========================================================== */
-@media (min-width: 1024px) {
+@media (min-width: 1250px) {
 
   /* ===== BASE ===== */
   body {
-    max-width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
   }
 
   /* ===== TYPOGRAPHY ===== */
@@ -1334,8 +1603,9 @@ h4 {
     order: 2;
     margin-top: 32px;
     margin-bottom: 128px;
-    width: 434px;
-    height: 585px;
+    width: 100%;
+    max-width: 434px;
+    aspect-ratio: 434 / 585;
     overflow: hidden;
     border: 4px solid #000B57;
   }
@@ -1403,7 +1673,7 @@ h4 {
     height: 384px;
     margin-top: 0;
     grid-column: 7 / 12;
-    width: 547px;
+    width: 100%;
     max-width: 547px;
     padding: 0;
 }
@@ -1420,7 +1690,6 @@ h4 {
   bottom: 0;
   border: 4px solid #000B57;
   background: #F2F2F2;
-  padding-top: 40px;
 }
 
 .card.card-mid {
@@ -1429,7 +1698,6 @@ h4 {
   bottom: 0;
   border: 4px solid #000B57;
   background: #F2F2F2;
-  padding-top: 40px;
 }
 
 .card.card-front {
@@ -1532,7 +1800,7 @@ h4 {
   .weltmeisterschaften .olympia-cards {
     grid-column: 7 / 12;
     grid-row: 1;
-    width: 547px;
+    width: 100%;
     max-width: 547px;
     height: 640px;
     padding: 0;
@@ -1555,7 +1823,6 @@ h4 {
     z-index: 4;
     border: 4px solid #000B57;
     background: #F2F2F2;
-    padding-top: 40px;
   }
 
   .weltmeisterschaften .card-stack-5 .card-back {
@@ -1563,7 +1830,6 @@ h4 {
     z-index: 3;
     border: 4px solid #000B57;
     background: #F2F2F2;
-    padding-top: 40px;
   }
 
   .weltmeisterschaften .card-stack-5 .card-fourth {
@@ -1571,7 +1837,6 @@ h4 {
     z-index: 2;
     border: 4px solid #000B57;
     background: #F2F2F2;
-    padding-top: 40px;
   }
 
   .weltmeisterschaften .card-stack-5 .card-fifth {
@@ -1579,7 +1844,6 @@ h4 {
     z-index: 1;
     border: 4px solid #000B57;
     background: #F2F2F2;
-    padding-top: 40px;
   }
 
   .bilder-full {
