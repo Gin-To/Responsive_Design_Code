@@ -1868,6 +1868,7 @@ h4 {
     grid-template-columns: repeat(12, 1fr);
     gap: 20px;
     padding: 0 50px;
+    padding-top: 128px;
   }
 
   .weltmeisterschaften > .container {
@@ -1896,7 +1897,7 @@ h4 {
     width: 100%;
     max-width: 547px;
     padding: 0;
-    margin-top: 128px;
+    margin-top: 0;
   }
 
   .weltmeisterschaften .card-stack-5 {

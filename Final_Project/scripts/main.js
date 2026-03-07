@@ -49,6 +49,14 @@ allCards.forEach(card => {
     const stack = card.closest('.card-stack');
     const allStackCards = Array.from(stack.querySelectorAll('.card'));
     const wasOpen = card.classList.contains('card-open');
+    const hadOpenCard = allStackCards.some(c => c.classList.contains('card-open'));
+    const isSwitching = hadOpenCard && !wasOpen; // closing one card, opening another
+
+    // Disable transitions only when switching cards so reset is instant
+    if (isSwitching) {
+      allStackCards.forEach(c => { c.style.transition = 'none'; });
+      stack.style.transition = 'none';
+    }
 
     // Close all cards in this stack — reset everything
     allStackCards.forEach(c => {
@@ -57,6 +65,14 @@ allCards.forEach(card => {
       c.style.top = '';
     });
     stack.style.height = '';
+
+    if (isSwitching) {
+      // Force reflow so the reset takes effect instantly
+      stack.offsetHeight;
+      // Re-enable transitions
+      allStackCards.forEach(c => { c.style.transition = ''; });
+      stack.style.transition = '';
+    }
 
     if (!wasOpen) {
       card.classList.remove('card-hover');
