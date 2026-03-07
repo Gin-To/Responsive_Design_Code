@@ -1190,14 +1190,6 @@ h4 {
     left: 50px;
   }
 
-  .hero-text h1 {
-    font-family: "clother", sans-serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 80px;
-    line-height: 80px;
-    color: #F2F2F2;
-  }
 
   /* ===== ABOUT + CAREER COMBINED LAYOUT ===== */
   /*
@@ -1384,6 +1376,7 @@ h4 {
     grid-column: 7 / 12;
     width: 547px;
     max-width: 547px;
+    padding: 0;
 }
 
 .card-stack {
@@ -1398,6 +1391,7 @@ h4 {
   bottom: 0;
   border: 4px solid #000B57;
   background: #F2F2F2;
+  padding-top: 40px;
 }
 
 .card.card-mid {
@@ -1406,6 +1400,7 @@ h4 {
   bottom: 0;
   border: 4px solid #000B57;
   background: #F2F2F2;
+  padding-top: 40px;
 }
 
 .card.card-front {
@@ -1415,6 +1410,37 @@ h4 {
   border: 4px solid #000B57;
   background: #F2F2F2;
 }
+
+.card-year {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000B57;
+}
+
+.card-city {
+  font-family: "clother", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000B57;
+}
+
+.card-place {
+  font-family: "manifold-extd-cf", sans-serif;
+  font-weight: 800;
+  font-size: 65px;
+  line-height: 48px;
+  color: #000B57;
+}
+
+.container p {
+  align-self: flex-end;
+}
+
+
+
 
   /* Bilder side by side */
   .bilder {
