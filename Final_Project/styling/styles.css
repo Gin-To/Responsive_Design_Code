@@ -988,10 +988,11 @@ h4 {
   line-height: 16px;
   color: #000B57;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 .footer-legal a:hover {
-  text-decoration: underline;
+  color: #FE1413;
 }
 
 .footer-copyright {
@@ -1027,6 +1028,11 @@ h4 {
   display: block;
   height: 24px;
   width: auto;
+  transition: filter 0.2s ease;
+}
+
+.footer-social a:hover img {
+  filter: brightness(0) saturate(100%) invert(16%) sepia(95%) saturate(6932%) hue-rotate(358deg) brightness(97%) contrast(113%);
 }
 
 /* ==========================================================
@@ -2020,6 +2026,7 @@ h4 {
   .footer-legal a:not(:last-child)::after {
     content: " | ";
     white-space: pre;
+    color: #000B57;
   }
 
   .footer-copyright {
