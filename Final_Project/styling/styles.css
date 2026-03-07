@@ -637,6 +637,7 @@ h4 {
   width: min(250px, 65vw);
   /* Height = front card 90 + back cards peeking above: 2 * 88 = 176 */
   height: calc(90px + 176px);
+  transition: height 0.4s ease;
 }
 
 /* Base card style — every card is a separate rounded rectangle */
@@ -655,6 +656,8 @@ h4 {
   justify-content: flex-start;
   padding: 0 24px;
   overflow: hidden;
+  cursor: pointer;
+  transition: height 0.4s ease, border-color 0.2s ease;
 }
 
 /* Top row: year/city + place number */
@@ -667,13 +670,30 @@ h4 {
   flex-shrink: 0;
 }
 
+.card-top .card-year,
+.card-top .card-city,
+.card-top .card-place {
+  transition: color 0.2s ease;
+}
+
 /* Detail section: hidden by default */
 .card-detail {
-  display: none;
-  border-top: 2px solid #000B57;
-  padding-top: 12px;
-  margin-top: 0;
+  display: block;
   width: 100%;
+  padding-top: 10px;
+  padding-bottom: 24px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Centered line above detail text */
+.card-detail::before {
+  content: "";
+  display: block;
+  width: 210px;
+  height: 2px;
+  background-color: #FE1413;
+  margin: 0 auto 12px auto;
 }
 
 .card-detail-title {
@@ -681,7 +701,7 @@ h4 {
   font-weight: 700;
   font-size: 14px;
   line-height: 18px;
-  color: #000B57;
+  color: #FE1413;
   margin: 0;
 }
 
@@ -690,17 +710,34 @@ h4 {
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  color: #000B57;
+  color: #FE1413;
   margin: 4px 0 0 0;
 }
 
-/* Active card: show detail + red border */
-.card.card-active {
+/* Hover state: red border + red text (no expand) */
+.card.card-hover {
   border-color: #FE1413;
 }
 
-.card.card-active .card-detail {
-  display: block;
+.card.card-hover .card-top .card-year,
+.card.card-hover .card-top .card-city,
+.card.card-hover .card-top .card-place {
+  color: #FE1413;
+}
+
+/* Open state: card expands, detail fades in */
+.card.card-open {
+  border-color: #FE1413;
+}
+
+.card.card-open .card-top .card-year,
+.card.card-open .card-top .card-city,
+.card.card-open .card-top .card-place {
+  color: #FE1413;
+}
+
+.card.card-open .card-detail {
+  opacity: 1;
 }
 
 /* Back card (1st/top): tallest — peeks 176px above bottom */
@@ -1124,8 +1161,8 @@ h4 {
     min-height: 128px;
   }
 
-  .card-detail {
-    border-top-width: 4px;
+  .card-detail::before {
+    height: 4px;
   }
 
   .card-back {
@@ -1682,6 +1719,7 @@ h4 {
   position: relative;
   width: 100%;
   height: 384px; /* tallest card */
+  transition: height 0.4s ease;
 }
 
 .card.card-back {
