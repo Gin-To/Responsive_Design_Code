@@ -1075,10 +1075,6 @@ h4 {
     height: 100%;
   }
 
-  .desktop-nav li:hover {
-    box-shadow: inset 0 0 0 4px #FE1413;
-  }
-
   .desktop-nav li:nth-child(1) {
     grid-column: 5 / 7;
   }
@@ -1095,12 +1091,7 @@ h4 {
     grid-column: 11 / 13;
   }
 
-  /*
-    5 internal vertical lines:
-    1. End of col 2 (after logo) — navbar::before
-    2. End of col 4 (before Kim Ho-Jun) — navbar::after
-    3-5. Between nav items — li pseudo-elements
-  */
+  /* Vertical line after col 2 (after logo) */
   .navbar::before {
     content: "" !important;
     position: absolute;
@@ -1113,17 +1104,11 @@ h4 {
   }
 
   .navbar::after {
-    content: "" !important;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: calc(4 * 100% / 12);
-    border-left: 4px solid #000B57;
-    z-index: 1;
-    display: block !important;
+    display: none !important;
   }
 
-  /* Lines between nav items */
+  /* Vertical lines: left of each nav item */
+  .desktop-nav li:nth-child(1)::before,
   .desktop-nav li:nth-child(2)::before,
   .desktop-nav li:nth-child(3)::before,
   .desktop-nav li:nth-child(4)::before {
@@ -1133,6 +1118,14 @@ h4 {
     bottom: 0;
     left: -2px;
     border-left: 4px solid #000B57;
+  }
+
+  /* Hide blue divider lines when item is hovered */
+  .desktop-nav li.nav-hover::before {
+    display: none !important;
+  }
+  .desktop-nav li.nav-hover + li::before {
+    display: none !important;
   }
 
   .desktop-nav li a {
@@ -1148,10 +1141,26 @@ h4 {
     justify-content: center;
     width: 100%;
     height: 100%;
+    position: relative;
   }
 
-  .desktop-nav li:hover a {
+  /* Hover state: bold red text */
+  .desktop-nav li.nav-hover a {
     font-weight: 700;
+    color: #FE1413;
+  }
+
+  /* Red border box that covers the navbar border */
+  .desktop-nav li.nav-hover a::after {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 4px solid #FE1413;
+    pointer-events: none;
+    z-index: 3;
   }
 
   /* Hide mobile nav panel & overlay on desktop */
