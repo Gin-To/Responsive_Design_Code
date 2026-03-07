@@ -81,10 +81,13 @@ allCards.forEach(card => {
       // The expanded card's bottom edge
       const expandedBottom = clickedTop + fullContentHeight;
 
-      // Sort cards below by z-index (top to bottom visually)
+      // Sort cards below by z-index (visually in front)
       const cardsBelow = allStackCards
         .filter(c => c !== card && (parseInt(getComputedStyle(c).zIndex) || 0) > clickedZ)
         .sort((a, b) => (parseInt(getComputedStyle(a).zIndex) || 0) - (parseInt(getComputedStyle(b).zIndex) || 0));
+
+      const cardsAbove = allStackCards
+        .filter(c => c !== card && (parseInt(getComputedStyle(c).zIndex) || 0) < clickedZ);
 
       // Get the peek gap from the original card positions
       const peekGap = cardsBelow.length > 0
@@ -92,21 +95,16 @@ allCards.forEach(card => {
         : 88;
 
       // Position cards below: overlap the expanded card by peekGap
-      // First card below starts at expandedBottom - peekGap (overlapping)
-      // Each subsequent card keeps its original peekGap spacing
       cardsBelow.forEach((c, i) => {
         c.style.top = (expandedBottom - peekGap + i * peekGap) + 'px';
       });
-
-      // Cards above (behind): grow height to extend to new stack bottom
-      const cardsAbove = allStackCards
-        .filter(c => c !== card && (parseInt(getComputedStyle(c).zIndex) || 0) < clickedZ);
 
       // Calculate new stack height
       const newStackHeight = cardsBelow.length > 0
         ? (expandedBottom - peekGap + (cardsBelow.length - 1) * peekGap) + cardsBelow[cardsBelow.length - 1].offsetHeight
         : clickedTop + fullContentHeight;
 
+      // Cards above: grow height to extend to new stack bottom
       cardsAbove.forEach(c => {
         const cTop = parseInt(getComputedStyle(c).top) || 0;
         c.style.height = (newStackHeight - cTop) + 'px';
