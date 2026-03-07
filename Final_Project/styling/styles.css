@@ -1349,21 +1349,32 @@ h4 {
 
   /* ===== OLYMPIA SECTION ===== */
   .olympia {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
-  padding: 0 50px;
-}
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+    padding: 50px;
+    padding-top: 128px;
+  }
 
-.olympia > .container {
-  display: contents; /* Allows direct children to use the parent grid */
-}
+  .olympia > .container {
+    grid-column: 2 / 6;
+    grid-row: 1;
+    display: block;
+    align-self: end;
+    padding: 0;
+  }
 
-.olympia h1 {
-  grid-column: 2 / 6;
-  align-self: end;
-  margin: 0;
-}
+  .olympia > .container h1 {
+    grid-column: unset;
+    margin: 0 0 32px 0;
+  }
+
+  .olympia > .container p {
+    grid-column: unset;
+    margin-top: 0;
+    font-size: 16px;
+    line-height: 20px;
+  }
 
   /* Cards */
   .olympia-cards {
@@ -1445,13 +1456,31 @@ h4 {
   /* Bilder side by side */
   .bilder {
     grid-column: 1 / -1;
-    grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
     padding: 0;
+    margin-top: 128px;
+  }
+
+  .bilder picture:first-child {
+    grid-column: 2 / 7;
+  }
+
+  .bilder picture:last-child {
+    grid-column: 7 / 12;
+  }
+
+  .bilder picture {
+    border: 4px solid #000B57;
   }
 
   .bilder img,
-  .bilder picture {
-    grid-column: auto;
+  .bilder picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
 
   /* ===== WELTMEISTERSCHAFTEN SECTION ===== */
@@ -1463,81 +1492,169 @@ h4 {
   }
 
   .weltmeisterschaften > .container {
-    grid-column: 1 / 6;
+    grid-column: 2 / 6;
     grid-row: 1;
-    padding-top: 128px;
-    padding-left: 0;
-    padding-right: 0;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 20px;
+    display: block;
+    align-self: end;
+    padding: 0;
   }
 
   .weltmeisterschaften > .container h1 {
-    grid-column: 1 / -1;
+    grid-column: unset;
+    margin: 0 0 32px 0;
   }
 
   .weltmeisterschaften > .container p {
-    grid-column: 1 / -1;
+    grid-column: unset;
+    margin-top: 0;
     font-size: 16px;
     line-height: 20px;
   }
 
   .weltmeisterschaften .olympia-cards {
-    grid-column: 7 / 13;
+    grid-column: 7 / 12;
     grid-row: 1;
+    width: 547px;
+    max-width: 547px;
+    height: 640px;
+    padding: 0;
+    margin-top: 128px;
+  }
+
+  .weltmeisterschaften .card-stack-5 {
+    height: 640px;
+  }
+
+  .weltmeisterschaften .card-stack-5 .card-front {
+    height: 128px;
+    z-index: 5;
+    border: 4px solid #000B57;
+    background: #F2F2F2;
+  }
+
+  .weltmeisterschaften .card-stack-5 .card-mid {
+    height: 256px;
+    z-index: 4;
+    border: 4px solid #000B57;
+    background: #F2F2F2;
+    padding-top: 40px;
+  }
+
+  .weltmeisterschaften .card-stack-5 .card-back {
+    height: 384px;
+    z-index: 3;
+    border: 4px solid #000B57;
+    background: #F2F2F2;
+    padding-top: 40px;
+  }
+
+  .weltmeisterschaften .card-stack-5 .card-fourth {
+    height: 512px;
+    z-index: 2;
+    border: 4px solid #000B57;
+    background: #F2F2F2;
+    padding-top: 40px;
+  }
+
+  .weltmeisterschaften .card-stack-5 .card-fifth {
+    height: 640px;
+    z-index: 1;
+    border: 4px solid #000B57;
+    background: #F2F2F2;
+    padding-top: 40px;
   }
 
   .bilder-full {
     grid-column: 1 / -1;
-    height: auto;
-    max-height: 600px;
+    height: 1017px;
+    max-height: none;
+    margin-top: 128px;
+    margin-bottom: 0;
+    border: 4px solid #000B57;
+    overflow: hidden;
   }
 
   /* ===== FOOTER ===== */
+  .footer {
+    border: none;
+    margin: 0 50px;
+    padding-top: 128px;
+    padding-bottom: 64px;
+  }
+
   .footer-grid {
     grid-template-columns: repeat(12, 1fr);
     gap: 20px;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 0;
+    border: 4px solid #000B57;
+    height: 128px;
+    align-items: last baseline;
+    position: relative;
+    padding-bottom: 28px;
+  }
+
+  /* Vertical line after column 3 */
+  .footer::after {
+    display: none;
+  }
+
+  .footer-grid::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(3 * 100% / 12);
+    border-left: 4px solid #000B57;
+    pointer-events: none;
   }
 
   .footer-logo {
-    grid-column: 1 / 3;
+    grid-column: 1 / 4;
+    grid-row: 1;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .footer-logo img {
+    height: 47px;
   }
 
   .footer-contact {
-    grid-column: 3 / 7;
+    grid-column: 4 / 6;
+    grid-row: 1;
+    padding: 0 0 0 20px;
   }
 
   .footer-legal {
-    grid-column: 7 / 9;
+    grid-column: 6 / 9;
+    grid-row: 1;
     flex-direction: row;
+    gap: 0;
+    padding: 0;
+  }
+
+  .footer-legal a {
+    white-space: nowrap;
+  }
+
+  .footer-legal a:not(:last-child)::after {
+    content: " | ";
+    white-space: pre;
+  }
+
+  .footer-copyright {
+    grid-column: 9 / 12;
+    grid-row: 1;
+    padding: 0;
+  }
+
+  .footer-social {
+    grid-column: 12 / 13;
+    grid-row: 1;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
     gap: 16px;
-  }
-
-  .footer-copyright {
-    grid-column: 9 / 11;
-  }
-
-  .footer-social {
-    grid-column: 11 / 13;
-  }
-
-  /* Update footer vertical line position for 12-col grid */
-  .footer::after {
-    left: calc(50px + 2 * ((100% - 100px - 11 * 20px) / 12) + 2 * 20px);
-  }
-
-  /* Footer legal row alignment */
-  .footer-legal {
-    align-self: end;
-  }
-
-  .footer-copyright {
-    align-self: end;
-  }
-
-  .footer-social {
-    align-self: end;
+    padding: 0 54px 0 0;
   }
 }
