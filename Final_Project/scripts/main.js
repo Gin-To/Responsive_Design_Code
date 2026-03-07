@@ -47,13 +47,14 @@ allCards.forEach(card => {
   // Click: toggle open/close (expand to show detail)
   card.addEventListener('click', () => {
     const stack = card.closest('.card-stack');
-    const allStackCards = stack.querySelectorAll('.card');
+    const allStackCards = Array.from(stack.querySelectorAll('.card'));
     const wasOpen = card.classList.contains('card-open');
 
     // Close all cards in this stack — reset everything
     allStackCards.forEach(c => {
       c.classList.remove('card-open');
       c.style.height = '';
+      c.style.top = '';
     });
     stack.style.height = '';
 
@@ -61,32 +62,57 @@ allCards.forEach(card => {
       card.classList.remove('card-hover');
       card.classList.add('card-open');
 
-      // Measure how tall the card needs to be for its content
-      const originalHeight = card.offsetHeight;
-      card.style.height = 'auto';
-      const fullHeight = card.scrollHeight;
-      card.style.height = originalHeight + 'px';
+      // Get the clicked card's position and z-index
+      const clickedTop = parseInt(getComputedStyle(card).top) || 0;
+      const clickedZ = parseInt(getComputedStyle(card).zIndex) || 0;
 
-      // Force reflow so the transition works
+      // Measure full content height
+      const cssHeight = card.offsetHeight;
+      card.style.height = 'auto';
+      const fullContentHeight = card.scrollHeight;
+      card.style.height = cssHeight + 'px';
+
+      // Force reflow
       card.offsetHeight;
 
-      // Calculate how much extra height is needed
-      const growth = fullHeight - originalHeight;
-
       // Set the card to its full content height
-      card.style.height = fullHeight + 'px';
+      card.style.height = fullContentHeight + 'px';
 
-      // Grow all OTHER cards by the same amount so they stay aligned
-      allStackCards.forEach(c => {
-        if (c !== card) {
-          const currentH = c.offsetHeight;
-          c.style.height = (currentH + growth) + 'px';
-        }
+      // The expanded card's bottom edge
+      const expandedBottom = clickedTop + fullContentHeight;
+
+      // Sort cards below by z-index (top to bottom visually)
+      const cardsBelow = allStackCards
+        .filter(c => c !== card && (parseInt(getComputedStyle(c).zIndex) || 0) > clickedZ)
+        .sort((a, b) => (parseInt(getComputedStyle(a).zIndex) || 0) - (parseInt(getComputedStyle(b).zIndex) || 0));
+
+      // Get the peek gap from the original card positions
+      const peekGap = cardsBelow.length > 0
+        ? (parseInt(getComputedStyle(cardsBelow[0]).top) || 0) - clickedTop
+        : 88;
+
+      // Position cards below: overlap the expanded card by peekGap
+      // First card below starts at expandedBottom - peekGap (overlapping)
+      // Each subsequent card keeps its original peekGap spacing
+      cardsBelow.forEach((c, i) => {
+        c.style.top = (expandedBottom - peekGap + i * peekGap) + 'px';
       });
 
-      // Grow the stack height — pushes content below down
-      const stackH = stack.offsetHeight;
-      stack.style.height = (stackH + growth) + 'px';
+      // Cards above (behind): grow height to extend to new stack bottom
+      const cardsAbove = allStackCards
+        .filter(c => c !== card && (parseInt(getComputedStyle(c).zIndex) || 0) < clickedZ);
+
+      // Calculate new stack height
+      const newStackHeight = cardsBelow.length > 0
+        ? (expandedBottom - peekGap + (cardsBelow.length - 1) * peekGap) + cardsBelow[cardsBelow.length - 1].offsetHeight
+        : clickedTop + fullContentHeight;
+
+      cardsAbove.forEach(c => {
+        const cTop = parseInt(getComputedStyle(c).top) || 0;
+        c.style.height = (newStackHeight - cTop) + 'px';
+      });
+
+      stack.style.height = newStackHeight + 'px';
     }
   });
 });
