@@ -184,10 +184,12 @@ allCards.forEach(card => {
           'rotate(' + baseTextRotate + 'deg) translate(' + o.inactive.x + 'px, ' + o.inactive.y + 'px)';
       }
 
-      // Re-enable transition after a frame
+      // Re-enable transition after two frames to ensure no flip
       if (isActive !== wasActive) {
         requestAnimationFrame(() => {
-          inner.style.transition = '';
+          requestAnimationFrame(() => {
+            inner.style.transition = '';
+          });
         });
       }
     });
