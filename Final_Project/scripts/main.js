@@ -133,157 +133,138 @@ allCards.forEach(card => {
 
 // ===== CAREER CIRCLE SCROLL ANIMATION =====
 (() => {
-  const careerSection = document.querySelector('.career');
   const wrapper = document.querySelector('.career-circle-wrapper');
-  if (!careerSection || !wrapper) return;
+  if (!wrapper) return;
 
-  // Year order matches scroll direction (scroll down = advance through career)
   const yearOrder = ['2006', '2007', '2009', '2010', '2014', '2015', '2017', '2018'];
-  const angles = { '2006': 225, '2007': 270, '2009': 315, '2010': 0, '2014': 45, '2015': 90, '2017': 135, '2018': 180 };
+  const stepAngle = 45; // Each year is 45° apart on the circle
 
-  // Get active label offsets based on breakpoint
-  function getActiveOffsets() {
+  function getOffsets() {
     if (window.matchMedia('(min-width: 600px)').matches) {
-      return { x: 51, y: -22 };
+      return { active: { x: 51, y: -22 }, inactive: { x: 26, y: -9 } };
     }
-    return { x: 39.5, y: -16 };
+    return { active: { x: 39.5, y: -16 }, inactive: { x: 14, y: -7 } };
   }
 
-  // Start with 2010 active (index 3)
-  let currentIndex = 3;
-  // Track cumulative rotation to avoid jumps across 0°/360° boundary
-  // 2010 is at angle 0°, so initial wrapper rotation is 0
-  let currentRotation = 0;
+  let currentIndex = 0; // Start at 2006
+  let currentRotation = -225; // 2006 is at 225°, rotate wrapper by -225° to put it at 0°
+  let previousActiveYear = yearOrder[0];
 
-  function setActiveYear(index) {
-    if (index < 0 || index >= yearOrder.length) return;
-    if (index === currentIndex) return;
+  function applyState() {
+    const year = yearOrder[currentIndex];
+    const o = getOffsets();
 
-    const oldIndex = currentIndex;
-    currentIndex = index;
-
-    // Calculate the step: difference in angles between old and new
-    const oldAngle = angles[yearOrder[oldIndex]];
-    const newAngle = angles[yearOrder[index]];
-
-    // Find the shortest rotation step between the two angles
-    let diff = newAngle - oldAngle;
-    // Normalize to [-180, 180] for shortest path
-    while (diff > 180) diff -= 360;
-    while (diff < -180) diff += 360;
-
-    // Accumulate rotation (negative because we rotate the wrapper opposite)
-    currentRotation -= diff;
-
-    const year = yearOrder[index];
-    const o = getActiveOffsets();
-
-    // Apply cumulative rotation
     wrapper.style.transform = 'rotate(' + currentRotation + 'deg)';
 
-    // Toggle active on dots
     document.querySelectorAll('.career-dot').forEach(dot => {
       dot.classList.toggle('active', dot.dataset.year === year);
     });
 
-    // Toggle active on labels
     document.querySelectorAll('.career-label').forEach(label => {
-      const isActive = label.dataset.year === year;
+      const yr = label.dataset.year;
+      const isActive = yr === year;
+      const wasActive = yr === previousActiveYear;
+      const inner = label.querySelector('.career-label-inner');
+      const baseTextRotate = parseFloat(label.style.getPropertyValue('--text-rotate'));
+
+      // If switching between active/inactive, disable transition to prevent flip
+      if (isActive !== wasActive) {
+        inner.style.transition = 'none';
+        // Force reflow so the 'none' takes effect before we set the new transform
+        inner.offsetHeight;
+      }
+
       label.classList.toggle('active', isActive);
 
-      const inner = label.querySelector('.career-label-inner');
-
       if (isActive) {
-        // Counter-rotate so text is horizontal: negate the cumulative rotation
         inner.style.transform =
-          'rotate(' + (-currentRotation) + 'deg) translateX(' + o.x + 'px) translateY(' + o.y + 'px)';
+          'rotate(' + (-currentRotation) + 'deg) translateX(' + o.active.x + 'px) translateY(' + o.active.y + 'px)';
       } else {
-        // Clear inline style — let CSS --text-rotate handle tangent rotation
-        inner.style.transform = '';
+        inner.style.transform =
+          'rotate(' + baseTextRotate + 'deg) translate(' + o.inactive.x + 'px, ' + o.inactive.y + 'px)';
+      }
+
+      // Re-enable transition after a frame
+      if (isActive !== wasActive) {
+        requestAnimationFrame(() => {
+          inner.style.transition = '';
+        });
       }
     });
+
+    previousActiveYear = year;
   }
 
-  // Scroll-on-circle: always capture wheel on the circle, one step per gesture
+  function stepForward() {
+    currentIndex = (currentIndex + 1) % yearOrder.length;
+    currentRotation -= stepAngle;
+    applyState();
+  }
+
+  function stepBackward() {
+    currentIndex = (currentIndex - 1 + yearOrder.length) % yearOrder.length;
+    currentRotation += stepAngle;
+    applyState();
+  }
+
+  // Wheel: one step per scroll gesture, then wait for user to stop and scroll again
   let isLocked = false;
-  let lockTimer = null;
+  let unlockTimer = null;
 
   wrapper.addEventListener('wheel', (e) => {
-    e.preventDefault(); // Always stop page scroll on the circle
+    e.preventDefault();
+    if (isLocked) return;
 
-    if (isLocked) {
-      // Keep resetting timer — unlock only after user STOPS scrolling
-      clearTimeout(lockTimer);
-      lockTimer = setTimeout(() => { isLocked = false; }, 400);
-      return;
-    }
-
-    // Advance one step and lock
     isLocked = true;
-    if (e.deltaY > 0 && currentIndex < yearOrder.length - 1) {
-      setActiveYear(currentIndex + 1);
-    } else if (e.deltaY < 0 && currentIndex > 0) {
-      setActiveYear(currentIndex - 1);
+
+    if (e.deltaY > 0) {
+      stepForward();
+    } else if (e.deltaY < 0) {
+      stepBackward();
     }
 
-    // Unlock only after user stops scrolling for 400ms
-    clearTimeout(lockTimer);
-    lockTimer = setTimeout(() => { isLocked = false; }, 400);
+    // Unlock after a pause — user must stop scrolling before next step
+    clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(() => { isLocked = false; }, 700);
   }, { passive: false });
 
-  // Touch support for mobile
+  // Also keep resetting the timer while scroll events keep coming
+  wrapper.addEventListener('wheel', (e) => {
+    if (isLocked) {
+      clearTimeout(unlockTimer);
+      unlockTimer = setTimeout(() => { isLocked = false; }, 700);
+    }
+  }, { passive: true });
+
+  // Touch support
   let touchStartY = 0;
   let isTouchLocked = false;
-  let touchLockTimer = null;
+  let touchUnlockTimer = null;
 
   wrapper.addEventListener('touchstart', (e) => {
     touchStartY = e.touches[0].clientY;
-    isTouchLocked = false;
-    clearTimeout(touchLockTimer);
   }, { passive: true });
 
   wrapper.addEventListener('touchmove', (e) => {
     const touchY = e.touches[0].clientY;
     const diff = touchStartY - touchY;
 
-    // At the boundaries, let the page scroll normally
-    if (diff > 0 && currentIndex >= yearOrder.length - 1) return;
-    if (diff < 0 && currentIndex <= 0) return;
-
-    if (Math.abs(diff) > 40) {
+    if (Math.abs(diff) > 40 && !isTouchLocked) {
       e.preventDefault();
-      if (isTouchLocked) return;
-
       isTouchLocked = true;
+
       if (diff > 0) {
-        setActiveYear(currentIndex + 1);
+        stepForward();
       } else {
-        setActiveYear(currentIndex - 1);
+        stepBackward();
       }
       touchStartY = touchY;
 
-      clearTimeout(touchLockTimer);
-      touchLockTimer = setTimeout(() => { isTouchLocked = false; }, 300);
+      clearTimeout(touchUnlockTimer);
+      touchUnlockTimer = setTimeout(() => { isTouchLocked = false; }, 700);
     }
   }, { passive: false });
 
-  // Initialize: set 2010 as active on load
-  // Don't use setActiveYear for init since it needs oldIndex to compute diff
-  currentIndex = 3;
-  currentRotation = 0; // 2010 is at angle 0°, so no initial rotation needed
-  // Apply active classes
-  const initYear = yearOrder[3];
-  const initO = getActiveOffsets();
-  document.querySelectorAll('.career-dot').forEach(dot => {
-    dot.classList.toggle('active', dot.dataset.year === initYear);
-  });
-  document.querySelectorAll('.career-label').forEach(label => {
-    const isActive = label.dataset.year === initYear;
-    label.classList.toggle('active', isActive);
-    const inner = label.querySelector('.career-label-inner');
-    if (isActive) {
-      inner.style.transform =
-        'rotate(0deg) translateX(' + initO.x + 'px) translateY(' + initO.y + 'px)';
-    }
-  });
+  // Initialize at 2006
+  applyState();
 })();
