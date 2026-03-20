@@ -1,4 +1,29 @@
-/* ===== RESET & BASE ===== */
+/**
+ * KIM HO-JUN RESPONSIVE ONE-PAGER
+ * ================================
+ * Complete CSS documentation with detailed comments
+ * 
+ * COLOR SCHEME:
+ * - Navy (#000B57): Primary text & borders
+ * - Light Grey (#F2F2F2): Background
+ * - Medium Grey (#888793): Inactive state
+ * - Red (#FE1413): Focus states, hover effects, accents
+ * 
+ * TYPOGRAPHY:
+ * - "manifold-extd-cf": Headings (weights 100-900)
+ * - "clother": Body text (weights 300-900)
+ * 
+ * BREAKPOINTS:
+ * - Mobile: < 600px (6 columns, 8px margin, 16px gutter)
+ * - Tablet: 600px – 1249px (6 columns, 50px margin, 20px gutter, desktop typography)
+ * - Desktop: ≥ 1250px (12 columns, 50px margin, 20px gutter)
+ */
+
+/* ===== RESET & BASE STYLES ===== */
+/* 
+ * Universal reset: removes all default browser margins/padding
+ * box-sizing: border-box ensures padding/border are included in width/height
+ */
 *,
 *::before,
 *::after {
@@ -15,11 +40,19 @@ body {
   color: #000B57;
 }
 
+/* Prevent body scroll when mobile nav is open */
 body.no-scroll {
   overflow: hidden;
 }
 
-/* ===== ACCESSIBILITY: KEYBOARD FOCUS ===== */
+/* ===== ACCESSIBILITY: KEYBOARD FOCUS STATES ===== */
+/*
+ * ALL interactive elements and content text must have visible focus states
+ * for keyboard navigation (WCAG 2.1 Level AA compliance).
+ * Focus indicators use red (#FE1413) to match the design.
+ */
+
+/* Primary interactive elements: links, buttons, cards */
 a:focus-visible,
 button:focus-visible,
 .card:focus-visible {
@@ -28,12 +61,7 @@ button:focus-visible,
   border-radius: 8px;
 }
 
-/* Remove focus outline from career circle wrapper */
-.career-circle-wrapper:focus-visible {
-  outline: none;
-}
-
-/* Focus states for text content sections */
+/* Text content sections: headings and paragraphs are tabbable */
 h1:focus-visible,
 h2:focus-visible,
 h3:focus-visible,
@@ -53,6 +81,7 @@ p:focus-visible,
   border-radius: 4px;
 }
 
+/* Navigation link focus states */
 .desktop-nav a:focus-visible,
 .nav-links a:focus-visible,
 .footer-legal a:focus-visible,
@@ -61,21 +90,25 @@ p:focus-visible,
   outline-offset: 2px;
 }
 
+/* Mobile nav links get subtle background highlight on focus */
 .nav-links li a:focus-visible {
   background-color: rgba(254, 20, 19, 0.1);
   outline-offset: 0;
 }
 
+/* Desktop nav link focus: inset outline (inside the link box) */
 .desktop-nav li:focus-visible {
   outline: 3px solid #FE1413;
   outline-offset: -4px;
 }
 
+/* Menu buttons focus state */
 .menu-toggle:focus-visible,
 .menu-close:focus-visible {
   border-radius: 8px;
 }
 
+/* Card focus: red border + red text for metadata */
 .card:focus-visible {
   border-color: #FE1413;
 }
@@ -87,7 +120,13 @@ p:focus-visible,
 }
 
 /* ===== GRID SYSTEM ===== */
-/* 6 columns | margin 8px | gutter 16px | stretch */
+/*
+ * MOBILE (< 600px):
+ * - 6 columns
+ * - 8px margins (left & right)
+ * - 16px gutter between columns
+ * - Full-width content spans 1 / -1 (all 6 columns)
+ */
 .container {
   padding-left: 8px;
   padding-right: 8px;
@@ -102,8 +141,13 @@ p:focus-visible,
 }
 
 /* ===== TYPOGRAPHY ===== */
+/*
+ * Font sizes and weights defined per design spec.
+ * All fonts use Adobe Typekit (manifold-extd-cf & clother).
+ * Responsive scaling happens via media queries at tablet/desktop breakpoints.
+ */
 
-/* Headings — Manifold Extd CF Extra Bold (800) */
+/* Headings — Manifold Extd CF, Extra Bold (800) */
 h1 {
   font-family: "manifold-extd-cf", sans-serif;
   font-weight: 800;
@@ -132,7 +176,7 @@ h4 {
   line-height: 26px;
 }
 
-/* Button text — Clother Bold */
+/* Body text styles — Clother, various weights */
 .btn-text {
   font-family: "clother", sans-serif;
   font-weight: 700;
@@ -140,7 +184,6 @@ h4 {
   line-height: 20px;
 }
 
-/* Fliesstext Big Bold */
 .text-big-bold {
   font-family: "clother", sans-serif;
   font-weight: 700;
@@ -148,7 +191,6 @@ h4 {
   line-height: 20px;
 }
 
-/* Fliesstext Big Regular */
 .text-big-regular {
   font-family: "clother", sans-serif;
   font-weight: 400;
@@ -156,7 +198,6 @@ h4 {
   line-height: 20px;
 }
 
-/* Fliesstext Small Bold */
 .text-small-bold {
   font-family: "clother", sans-serif;
   font-weight: 700;
@@ -164,7 +205,6 @@ h4 {
   line-height: 18px;
 }
 
-/* Fliesstext Small Regular */
 .text-small {
   font-family: "clother", sans-serif;
   font-weight: 400;
@@ -172,7 +212,6 @@ h4 {
   line-height: 18px;
 }
 
-/* Footer Bold */
 .footer-text-bold {
   font-family: "clother", sans-serif;
   font-weight: 700;
@@ -180,7 +219,6 @@ h4 {
   line-height: 16px;
 }
 
-/* Footer Regular */
 .footer-text {
   font-family: "clother", sans-serif;
   font-weight: 400;
@@ -188,7 +226,12 @@ h4 {
   line-height: 16px;
 }
 
-/* ===== HEADER / NAVIGATION ===== */
+/* ===== HEADER / NAVIGATION (MOBILE) ===== */
+/*
+ * Mobile header: fixed 129px height with 3 horizontal dividers
+ * Top section: empty spacer + logo + burger menu
+ * Displays vertical grid lines at column boundaries (2/2 and 5/6)
+ */
 .header {
   position: relative;
   z-index: 100;
@@ -206,7 +249,7 @@ h4 {
   border-bottom: 2px solid #000B57;
 }
 
-/* Bottom half — navbar with grid */
+/* Bottom half — navigation bar with grid layout */
 .navbar {
   flex: 1;
   display: grid;
@@ -217,23 +260,17 @@ h4 {
   position: relative;
 }
 
-/* Vertical line after column 2 */
+/* Vertical divider: positioned after column 2 */
 .navbar::before {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  /*
-    402px viewport, 8px margin each side → 386px inner
-    Each col+gutter unit = 391/6 = 65.17px
-    After 2 units = 130.33px + 8px margin = 138.33px
-    Minus half gutter (8px) = 130.33px from left edge
-  */
   left: calc(8px + 2 * (100% - 16px) / 6 - 8px);
   border-left: 2px solid #000B57;
 }
 
-/* Vertical line after column 5 */
+/* Vertical divider: positioned after column 5 */
 .navbar::after {
   content: "";
   position: absolute;
@@ -243,26 +280,25 @@ h4 {
   border-left: 2px solid #000B57;
 }
 
-/* Logo centered in columns 1-2 */
+/* Logo: centered across columns 1-2 */
 .navbar .logo {
   grid-column: 1 / 3;
   justify-self: center;
 }
 
-/* Burger centered in column 6 */
+/* Burger menu: centered in column 6 */
 .navbar .menu-toggle {
   grid-column: 6 / 7;
   justify-self: center;
 }
 
-/* Logo */
 .logo img {
   display: block;
   height: 21px;
   width: auto;
 }
 
-/* Burger button */
+/* Burger button styling */
 .menu-toggle {
   background: none;
   border: none;
@@ -278,18 +314,23 @@ h4 {
   width: auto;
 }
 
-/* Desktop nav — hidden on mobile */
+/* Desktop nav hidden on mobile */
 .desktop-nav {
   display: none;
   list-style: none;
 }
 
-/* Hero text overlay — hidden on mobile */
+/* Hero text overlay hidden on mobile */
 .hero-text {
   display: none;
 }
 
-/* ===== SLIDE-IN NAV PANEL ===== */
+/* ===== MOBILE NAV PANEL (SLIDE-IN) ===== */
+/*
+ * Fixed overlay navigation that slides in from the right (100% translateX → 0)
+ * Stacks all menu items vertically, each 64px tall with borders between them.
+ * Semi-transparent dark overlay behind the panel for dimming the main content.
+ */
 .nav-panel {
   position: fixed;
   top: 0;
@@ -310,7 +351,7 @@ h4 {
   transform: translateX(0);
 }
 
-/* Nav panel header — mirrors main header exactly (129px) */
+/* Panel header: 129px tall, mirrors the main header structure */
 .nav-panel-header {
   height: 129px;
   display: flex;
@@ -334,7 +375,7 @@ h4 {
   position: relative;
 }
 
-/* Vertical line after column 2 */
+/* Vertical dividers in nav panel bar */
 .nav-panel-bar::before {
   content: "";
   position: absolute;
@@ -344,7 +385,6 @@ h4 {
   border-left: 2px solid #000B57;
 }
 
-/* Vertical line after column 5 */
 .nav-panel-bar::after {
   content: "";
   position: absolute;
@@ -354,13 +394,11 @@ h4 {
   border-left: 2px solid #000B57;
 }
 
-/* Logo in columns 1-2, centered */
 .nav-panel-bar .logo {
   grid-column: 1 / 3;
   justify-self: center;
 }
 
-/* Kreuz in column 6, centered */
 .nav-panel-bar .menu-close {
   grid-column: 6 / 7;
   justify-self: center;
@@ -381,7 +419,7 @@ h4 {
   width: auto;
 }
 
-/* Nav links — each item 64px tall, H4 font */
+/* Navigation links: vertical list, each 64px tall */
 .nav-links {
   list-style: none;
   display: flex;
@@ -411,12 +449,12 @@ h4 {
   background-color: #f0f0f5;
 }
 
-/* Empty space below nav links fills remaining height */
+/* Empty space fills remaining height */
 .nav-panel-empty {
   flex: 1;
 }
 
-/* Dark overlay behind the panel */
+/* Semi-transparent overlay behind the nav panel */
 .nav-overlay {
   position: fixed;
   top: 0;
@@ -525,7 +563,14 @@ h4 {
   margin-top: 64px;
 }
 
-/* ===== CAREER CIRCLE ===== */
+/* ===== CAREER CIRCLE SECTION ===== */
+/*
+ * SCROLL-DRIVEN ANIMATION:
+ * - 8 year dots positioned at 45° intervals around a circle (radius 270px on mobile)
+ * - User scrolls/swipes/navigates to rotate the circle and highlight years
+ * - One step per scroll gesture, then 700ms lock to prevent multiple steps
+ * - Career labels rotate 180° so text always faces outward from circle
+ */
 .career {
   position: relative;
   overflow: hidden;
@@ -541,11 +586,11 @@ h4 {
 }
 
 /* 
-  Circle wrapper: 589×589.
-  Center positioned so active text (at 270px + 14px padding from center)
-  aligns with the 4th grid column (209px from viewport left).
-  center_x = 209 - 270 - 14 = -75px → margin-left = -75 - 294.5 = -369.5px
-*/
+ * Career circle wrapper: 589×589px on mobile, 794.84×794.84px on tablet/desktop
+ * Contains 8 year dots and labels positioned around a circular path
+ * Rotates via CSS transform to bring different years to the top
+ * Transition: 0.6s ease makes the rotation smooth
+ */
 .career-circle-wrapper {
   position: relative;
   width: 589px;
@@ -564,8 +609,17 @@ h4 {
   height: 100%;
 }
 
-/* ===== DOT POINTS ===== */
-/* Each dot starts at the center (50%, 50%) then gets pushed out to the circle edge */
+/* ===== CAREER DOTS ===== */
+/*
+ * Each dot positioned at the circle edge using CSS transforms:
+ * 1. rotate(--angle): rotate to the dot's position angle (0°, 45°, 90°, etc.)
+ * 2. translateX(270px): move outward along the radius
+ * 3. rotate(-angle): counter-rotate so dot stays upright
+ * 4. translate(-50%, -50%): center the dot on itself
+ * 
+ * Circle: 270px radius, 45° between dots (8 dots total)
+ * Years: 2006, 2007, 2009, 2010, 2014, 2015, 2017, 2018
+ */
 .career-dot {
   position: absolute;
   top: 50%;
@@ -582,34 +636,37 @@ h4 {
   transition: width 0.4s ease, height 0.4s ease, background-color 0.4s ease;
 }
 
+/* Active dot: grows to 32px, turns navy */
 .career-dot.active {
   width: 32px;
   height: 32px;
   background-color: #000B57;
 }
 
-/* ===== TEXT LABELS ===== */
+/* ===== CAREER LABELS (YEAR TEXT) ===== */
 /*
-  Each label starts at the center of the circle (top:50%, left:50%),
-  then gets pushed outward to the circle edge at its --angle,
-  then the inner text gets rotated by --text-rotate.
-*/
+ * Label positioning: same as dots (positioned on circle)
+ * Inner wrapper (.career-label-inner) handles text rotation
+ * 
+ * Inactive state: small grey text, offset from center
+ * Active state: larger navy text, moved further out for readability
+ * 
+ * Detail text (e.g., "Erstes internationales Rennen")
+ * Hidden by default (opacity 0), shown only when active
+ */
 .career-label {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 0;
   height: 0;
-  /* Step 1: rotate to the angle position on the circle
-     Step 2: translate outward by the radius (270px)
-     Step 3: counter-rotate so the container is back to 0° */
   transform:
     rotate(var(--angle))
     translateX(270px)
     rotate(calc(-1 * var(--angle)));
 }
 
-/* The inner wrapper gets the final text rotation */
+/* Inner text container: handles rotation so text faces outward */
 .career-label-inner {
   transform: rotate(var(--text-rotate)) translate(14px, -7px);
   transform-origin: 0 0;
@@ -627,7 +684,7 @@ h4 {
   transition: font-size 0.4s ease, line-height 0.4s ease, color 0.4s ease;
 }
 
-/* Detail text hidden by default — only shows on active */
+/* Detail text: hidden by default, fade in when active */
 .career-label-detail {
   opacity: 0;
   max-height: 0;
@@ -644,7 +701,7 @@ h4 {
   margin: 0;
 }
 
-/* Career label focus state - wrap both year and detail together */
+/* Career label focus state: red outline wraps entire year + detail text */
 .career-label:focus-visible {
   outline: none;
 }
@@ -659,7 +716,7 @@ h4 {
   min-width: max-content;
 }
 
-/* ===== ACTIVE LABEL (2010 at 90°) ===== */
+/* Active label: larger text, navy color, detail text visible */
 .career-label.active .career-label-inner {
   transform: translateX(39.5px) translateY(-16px);
 }
@@ -714,7 +771,22 @@ h4 {
   line-height: 1.4;
 }
 
-/* ===== OLYMPIA CARDS ===== */
+/* ===== CARD STACK ANIMATIONS ===== */
+/*
+ * CARD STACK BEHAVIOR:
+ * - 3 cards stacked on top of each other (z-index 1, 2, 3)
+ * - Back card (z-index 1): extends to bottom
+ * - Mid card (z-index 2): peeks above back card (88px offset)
+ * - Front card (z-index 3): fully visible, clickable
+ * 
+ * Click front card → all cards reset → front card expands
+ * Expanded card: height = full content (90px + detail text)
+ * Cards below: repositioned to overlap expanded card, maintaining peek gap
+ * Cards above: height extended to reach new stack bottom
+ * 
+ * Smooth transitions: 0.4s ease for height/top changes
+ * Border/text color: instant 0.2s change on hover/focus
+ */
 .olympia-cards {
   display: flex;
   justify-content: center;
@@ -725,12 +797,11 @@ h4 {
 .card-stack {
   position: relative;
   width: min(250px, 65vw);
-  /* Height = front card 90 + back cards peeking above: 2 * 88 = 176 */
   height: calc(90px + 176px);
   transition: height 0.4s ease;
 }
 
-/* Base card style — every card is a separate rounded rectangle */
+/* Base card: 90px tall, rounded corners, navy border */
 .card {
   position: absolute;
   top: 0;
@@ -750,7 +821,7 @@ h4 {
   transition: height 0.4s ease, top 0.4s ease, border-color 0.2s ease;
 }
 
-/* Top row: year/city + place number */
+/* Top row: year/city + placement number */
 .card-top {
   display: flex;
   justify-content: space-between;
@@ -768,7 +839,7 @@ h4 {
   transition: color 0.2s ease;
 }
 
-/* Detail section: hidden by default */
+/* Detail section: initially hidden, fades in when card opens */
 .card-detail {
   display: block;
   width: 100%;
@@ -778,7 +849,7 @@ h4 {
   transition: opacity 0.3s ease;
 }
 
-/* Centered line above detail text */
+/* Red line above detail text */
 .card-detail::before {
   content: "";
   display: block;
@@ -806,7 +877,7 @@ h4 {
   margin: 4px 0 0 0;
 }
 
-/* Hover state: red border + red text (no expand) */
+/* Hover state: red border + red text (no expansion) */
 .card.card-hover {
   border-color: #FE1413;
 }
@@ -817,7 +888,7 @@ h4 {
   color: #FE1413;
 }
 
-/* Open state: card expands, detail fades in */
+/* Open state: card expanded, detail visible */
 .card.card-open {
   border-color: #FE1413;
 }
@@ -832,33 +903,30 @@ h4 {
   opacity: 1;
 }
 
-/* Back card (1st/top): extends to bottom of stack */
+/* Stack positions for 3-card stack (Olympia) */
 .card-back {
   top: 0;
   height: 266px;
   z-index: 1;
 }
 
-/* Mid card (2nd): extends to bottom of stack */
 .card-mid {
   top: 88px;
   height: 178px;
   z-index: 2;
 }
 
-/* Front card (3rd/bottom): just its own height */
 .card-front {
   top: 176px;
   height: 90px;
   z-index: 3;
 }
 
-/* Front card doesn't need overlap padding — no card below it */
 .card-front .card-detail {
   padding-bottom: 24px;
 }
 
-/* For WM section with 5 cards */
+/* Stack positions for 5-card stack (Weltmeisterschaften) */
 .card-fourth {
   top: 88px;
   height: 356px;
@@ -871,12 +939,10 @@ h4 {
   z-index: 1;
 }
 
-/* 5-card stack: tallest card is 444px */
 .card-stack-5 {
   height: 444px;
 }
 
-/* Adjust positions + z-index for 5-card stack */
 .card-stack-5 .card-back {
   top: 176px;
   height: 268px;
@@ -925,7 +991,7 @@ h4 {
   color: #000B57;
 }
 
-/* ===== BILDER (Section images) ===== */
+/* ===== BILDER (IMAGES) ===== */
 .bilder {
   margin-top: 64px;
   padding: 0 8px;
@@ -999,18 +1065,11 @@ h4 {
   padding-right: 8px;
 }
 
-/* Vertical divider line at the end of col 2 */
 .footer::after {
   content: "";
   position: absolute;
   top: 0;
   bottom: 0;
-  /*
-    8px margin + 2 col-widths + 1 gutter
-    col-width = (100% - 16px - 80px) / 6
-    = (100% - 96px) / 6
-    line = 8px + 2 * (100% - 96px) / 6 + 16px
-  */
   left: calc(8px + 2 * (100% - 96px) / 6 + 16px);
   border-left: 2px solid #000B57;
   pointer-events: none;
@@ -1020,7 +1079,7 @@ h4 {
   position: relative;
 }
 
-/* --- Top row --- */
+/* Top row */
 .footer-logo {
   grid-column: 1 / 3;
   display: flex;
@@ -1068,7 +1127,7 @@ h4 {
   margin-top: 8px;
 }
 
-/* --- Bottom row --- */
+/* Bottom row */
 .footer-legal {
   grid-column: 1 / 3;
   display: flex;
@@ -1140,11 +1199,16 @@ h4 {
 
 /* ==========================================================
    TABLET LAYOUT (600px – 1249px)
-   Stacked like mobile, but desktop sizes for fonts/circle/cards
-   ========================================================== */
+   ========================================================== 
+   Changes:
+   - Wider margins (50px) and gutters (20px)
+   - Desktop font sizes
+   - Career circle radius: 364px
+   - Card heights: 128px
+   - All borders increased to 4px
+*/
 @media (min-width: 600px) {
 
-  /* ===== TYPOGRAPHY — desktop sizes ===== */
   h1 {
     font-size: 48px;
     line-height: 48px;
@@ -1165,14 +1229,12 @@ h4 {
     line-height: 30px;
   }
 
-  /* ===== GRID — wider margins & gutters ===== */
   .container {
     padding-left: 50px;
     padding-right: 50px;
     gap: 20px;
   }
 
-  /* ===== HEADER — desktop border thickness ===== */
   .header {
     border-top-width: 4px;
     border-bottom-width: 4px;
@@ -1182,15 +1244,11 @@ h4 {
     border-bottom-width: 4px;
   }
 
-  .navbar::before {
-    border-left-width: 4px;
-  }
-
+  .navbar::before,
   .navbar::after {
     border-left-width: 4px;
   }
 
-  /* ===== ABOUT — desktop sizes, stacked ===== */
   .about-image {
     border-width: 4px;
   }
@@ -1204,7 +1262,7 @@ h4 {
     height: 4px;
   }
 
-  /* ===== CAREER CIRCLE — desktop size ===== */
+  /* Career circle: larger radius (364px), 4px border */
   .career-circle-wrapper {
     width: 794.84px;
     height: 794.84px;
@@ -1264,7 +1322,7 @@ h4 {
     border-top-width: 4px;
   }
 
-  /* ===== CARDS — desktop sizes, stacked ===== */
+  /* Cards: 128px tall on tablet */
   .olympia-cards {
     padding: 0 50px;
   }
@@ -1278,7 +1336,6 @@ h4 {
   .card {
     border-width: 4px;
     height: 128px;
-    padding: 0 24px;
   }
 
   .card-top {
@@ -1329,13 +1386,11 @@ h4 {
   .card-stack-5 .card-fifth {
     top: 0;
     height: 640px;
-    padding: 0 24px;
   }
 
   .card-stack-5 .card-fourth {
     top: 128px;
     height: 512px;
-    padding: 0 24px;
   }
 
   .card-stack-5 .card-back {
@@ -1368,14 +1423,12 @@ h4 {
     line-height: 22px;
   }
 
-  /* ===== OLYMPIA / WM — text sizes ===== */
   .olympia > .container p,
   .weltmeisterschaften > .container p {
     font-size: 16px;
     line-height: 20px;
   }
 
-  /* ===== BILDER — desktop borders ===== */
   .bilder {
     padding: 0 50px;
     gap: 20px;
@@ -1390,7 +1443,6 @@ h4 {
     border-width: 4px;
   }
 
-  /* ===== FOOTER — desktop borders ===== */
   .footer {
     border-top-width: 4px;
     border-bottom-width: 4px;
@@ -1404,18 +1456,23 @@ h4 {
 }
 
 /* ==========================================================
-   DESKTOP LAYOUT
-   12 columns | margin 50px | gutter 20px
-   ========================================================== */
+   DESKTOP LAYOUT (≥ 1250px)
+   ========================================================== 
+   Changes:
+   - 12-column grid system
+   - Max-width: 1440px
+   - Desktop navigation shows horizontally
+   - About & Career sections: 2-column layout (Career left, About right)
+   - Cards: wider, more spacing
+   - Hero text overlay visible
+*/
 @media (min-width: 1250px) {
 
-  /* ===== BASE ===== */
   body {
     max-width: 1440px;
     margin: 0 auto;
   }
 
-  /* ===== TYPOGRAPHY ===== */
   h1 {
     font-size: 48px;
     line-height: 48px;
@@ -1436,37 +1493,32 @@ h4 {
     line-height: 30px;
   }
 
-  /* Button */
   .btn-text {
     font-size: 18px;
     line-height: 22px;
   }
 
-  /* Fliesstext Large Bold */
   .text-big-bold {
     font-size: 18px;
     line-height: 22px;
   }
 
-  /* Fliesstext Large Regular */
   .text-big-regular {
     font-size: 18px;
     line-height: 22px;
   }
 
-  /* Fliesstext Standard Bold */
   .text-small-bold {
     font-size: 16px;
     line-height: 20px;
   }
 
-  /* Fliesstext Standard Regular */
   .text-small {
     font-size: 16px;
     line-height: 20px;
   }
 
-  /* ===== GRID: 12 columns, 50px margin, 20px gutter ===== */
+  /* 12-column grid: 50px margin, 20px gutter */
   .container {
     padding-left: 50px;
     padding-right: 50px;
@@ -1474,7 +1526,7 @@ h4 {
     gap: 20px;
   }
 
-  /* ===== HEADER / NAVIGATION ===== */
+  /* ===== DESKTOP HEADER ===== */
   .header {
     height: auto;
     border-top: none;
@@ -1484,7 +1536,6 @@ h4 {
     background-color: #F2F2F2;
   }
 
-  /* Hide mobile-only spacer */
   .header-spacer {
     display: none;
   }
@@ -1500,7 +1551,6 @@ h4 {
     border: 4px solid #000B57;
   }
 
-  /* Logo area: cols 1-2, centered */
   .navbar .logo {
     grid-column: 1 / 3;
     height: 100%;
@@ -1513,12 +1563,11 @@ h4 {
     height: 34px;
   }
 
-  /* Hide burger button */
   .menu-toggle {
     display: none;
   }
 
-  /* Show desktop nav */
+  /* Desktop nav: shows horizontally */
   .desktop-nav {
     display: contents;
   }
@@ -1547,7 +1596,6 @@ h4 {
     grid-column: 11 / 13;
   }
 
-  /* Vertical line after col 2 (after logo) */
   .navbar::before {
     content: "" !important;
     position: absolute;
@@ -1563,7 +1611,7 @@ h4 {
     display: none !important;
   }
 
-  /* Vertical lines: left of each nav item */
+  /* Vertical lines before each nav item */
   .desktop-nav li:nth-child(1)::before,
   .desktop-nav li:nth-child(2)::before,
   .desktop-nav li:nth-child(3)::before,
@@ -1576,10 +1624,10 @@ h4 {
     border-left: 4px solid #000B57;
   }
 
-  /* Hide blue divider lines when item is hovered */
   .desktop-nav li.nav-hover::before {
     display: none !important;
   }
+
   .desktop-nav li.nav-hover + li::before {
     display: none !important;
   }
@@ -1600,19 +1648,16 @@ h4 {
     position: relative;
   }
 
-  /* Hover state: bold red text */
   .desktop-nav li.nav-hover a {
     font-weight: 700;
     color: #FE1413;
   }
 
-  /* Focus state for desktop nav */
   .desktop-nav li a:focus-visible {
     outline: 3px solid #FE1413;
     outline-offset: -4px;
   }
 
-  /* Red border box that covers the navbar border */
   .desktop-nav li.nav-hover a::after {
     content: "";
     position: absolute;
@@ -1625,13 +1670,12 @@ h4 {
     z-index: 3;
   }
 
-  /* Hide mobile nav panel & overlay on desktop */
   .nav-panel,
   .nav-overlay {
     display: none !important;
   }
 
-  /* ===== HERO ===== */
+  /* ===== DESKTOP HERO ===== */
   .hero {
     width: auto;
     height: auto;
@@ -1670,13 +1714,12 @@ h4 {
     left: 50px;
   }
 
-
-  /* ===== ABOUT + CAREER COMBINED LAYOUT ===== */
+  /* ===== DESKTOP ABOUT + CAREER: 2-COLUMN LAYOUT ===== */
   /*
-    Desktop: about-career-wrapper is a 12-col grid.
-    Career circle on the left (cols 1-7),
-    About (text+portrait) on the right (cols 8-12)
-  */
+   * Wrapper is a 12-col grid:
+   * - Career: columns 1-7 (left side)
+   * - About: columns 8-12 (right side)
+   */
   .about-career-wrapper {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -1696,7 +1739,6 @@ h4 {
     background-color: #000B57;
   }
 
-  /* Career takes left half */
   .career {
     grid-column: 1 / 8;
     grid-row: 1;
@@ -1707,7 +1749,6 @@ h4 {
     justify-content: center;
   }
 
-  /* Desktop career overrides */
   .career-circle-wrapper {
     width: 794.84px;
     height: 794.84px;
@@ -1770,7 +1811,7 @@ h4 {
     display: none;
   }
 
-  /* About takes right side, starting at col 8 */
+  /* About takes right side */
   .about {
     grid-column: 8 / 13;
     grid-row: 1;
@@ -1784,7 +1825,6 @@ h4 {
     gap: 20px;
   }
 
-  /* Reorder: text first, image second on desktop */
   .about-text {
     grid-column: 1 / 4;
     order: 1;
@@ -1828,7 +1868,7 @@ h4 {
     display: none;
   }
 
-  /* ===== OLYMPIA SECTION ===== */
+  /* ===== DESKTOP OLYMPIA SECTION ===== */
   .olympia {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -1857,7 +1897,6 @@ h4 {
     line-height: 20px;
   }
 
-  /* Cards */
   .olympia-cards {
     display: flex;
     flex-direction: column;
@@ -1866,88 +1905,85 @@ h4 {
     max-width: 547px;
     padding: 0;
     margin-top: 0;
-}
+  }
 
-.card-stack {
-  position: relative;
-  width: 100%;
-  height: 384px;
-  transition: height 0.4s ease;
-}
+  .card-stack {
+    position: relative;
+    width: 100%;
+    height: 384px;
+    transition: height 0.4s ease;
+  }
 
-.card.card-back {
-  top: 0;
-  height: 384px;
-  z-index: 1;
-  border-width: 4px;
-  background: #F2F2F2;
-}
+  .card.card-back {
+    top: 0;
+    height: 384px;
+    z-index: 1;
+    border-width: 4px;
+    background: #F2F2F2;
+  }
 
-.card.card-mid {
-  top: 128px;
-  height: 256px;
-  z-index: 2;
-  border-width: 4px;
-  background: #F2F2F2;
-}
+  .card.card-mid {
+    top: 128px;
+    height: 256px;
+    z-index: 2;
+    border-width: 4px;
+    background: #F2F2F2;
+  }
 
-.card.card-front {
-  top: 256px;
-  height: 128px;
-  z-index: 3;
-  border-width: 4px;
-  background: #F2F2F2;
-}
+  .card.card-front {
+    top: 256px;
+    height: 128px;
+    z-index: 3;
+    border-width: 4px;
+    background: #F2F2F2;
+  }
 
-.card-detail::before {
-  width: 100%;
-  margin-left: 0;
-  margin-right: 0;
-  margin-bottom: 32px;
-}
+  .card-detail::before {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 32px;
+  }
 
-.card-detail-title {
-  font-size: 16px;
-  line-height: 20px;
-}
+  .card-detail-title {
+    font-size: 16px;
+    line-height: 20px;
+  }
 
-.card-detail-text {
-  font-size: 16px;
-  line-height: 20px;
-}
+  .card-detail-text {
+    font-size: 16px;
+    line-height: 20px;
+  }
 
-.card-year {
-  font-family: "clother", sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000B57;
-}
+  .card-year {
+    font-family: "clother", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000B57;
+  }
 
-.card-city {
-  font-family: "clother", sans-serif;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #000B57;
-}
+  .card-city {
+    font-family: "clother", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000B57;
+  }
 
-.card-place {
-  font-family: "manifold-extd-cf", sans-serif;
-  font-weight: 800;
-  font-size: 65px;
-  line-height: 48px;
-  color: #000B57;
-}
+  .card-place {
+    font-family: "manifold-extd-cf", sans-serif;
+    font-weight: 800;
+    font-size: 65px;
+    line-height: 48px;
+    color: #000B57;
+  }
 
-.container p {
-  align-self: flex-end;
-}
+  .container p {
+    align-self: flex-end;
+  }
 
-
-
-
-  /* Bilder side by side */
+  /* Images side by side */
   .bilder {
     grid-column: 1 / -1;
     display: grid;
@@ -1977,7 +2013,7 @@ h4 {
     display: block;
   }
 
-  /* ===== WELTMEISTERSCHAFTEN SECTION ===== */
+  /* ===== DESKTOP WELTMEISTERSCHAFTEN SECTION ===== */
   .weltmeisterschaften {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
@@ -2069,7 +2105,7 @@ h4 {
     overflow: hidden;
   }
 
-  /* ===== FOOTER ===== */
+  /* ===== DESKTOP FOOTER ===== */
   .footer {
     border: none;
     margin: 0 50px;
@@ -2088,7 +2124,6 @@ h4 {
     padding-bottom: 28px;
   }
 
-  /* Vertical line after column 3 */
   .footer::after {
     display: none;
   }

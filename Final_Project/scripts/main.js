@@ -55,12 +55,6 @@ allCards.forEach(card => {
     }
   });
 
-  card.addEventListener('focus', () => {
-    if (!card.classList.contains('card-open')) {
-      card.click();
-    }
-  });
-
   // Click: toggle open/close (expand to show detail)
   card.addEventListener('click', () => {
     const stack = card.closest('.card-stack');
@@ -104,13 +98,15 @@ allCards.forEach(card => {
       // Measure full content height
       const cssHeight = card.offsetHeight;
       card.style.height = 'auto';
+      // Force reflow to ensure 'auto' height is applied before measuring
+      card.offsetHeight;
       const fullContentHeight = card.scrollHeight;
       card.style.height = cssHeight + 'px';
 
-      // Force reflow
+      // Force reflow so transition sees the height reset
       card.offsetHeight;
 
-      // Set the card to its full content height
+      // Set the card to its full content height (starts transition)
       card.style.height = fullContentHeight + 'px';
 
       // The expanded card's bottom edge
@@ -155,7 +151,6 @@ allCards.forEach(card => {
   const wrapper = document.querySelector('.career-circle-wrapper');
   if (!wrapper) return;
 
-  wrapper.setAttribute('tabindex', '0');
   wrapper.setAttribute('role', 'region');
   wrapper.setAttribute('aria-label', 'Karriere-Zeitleiste. Mit Pfeiltasten oben und unten durch Jahre navigieren.');
 
