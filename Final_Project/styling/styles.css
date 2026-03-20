@@ -19,6 +19,68 @@ body.no-scroll {
   overflow: hidden;
 }
 
+/* ===== ACCESSIBILITY: KEYBOARD FOCUS ===== */
+a:focus-visible,
+button:focus-visible,
+.card:focus-visible {
+  outline: 3px solid #FE1413;
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+/* Focus states for text content sections */
+h1:focus-visible,
+h2:focus-visible,
+h3:focus-visible,
+h4:focus-visible,
+p:focus-visible,
+.about-text:focus-visible,
+.about-text h1:focus-visible,
+.about-text p:focus-visible,
+.olympia > .container h1:focus-visible,
+.olympia > .container p:focus-visible,
+.weltmeisterschaften > .container h1:focus-visible,
+.weltmeisterschaften > .container p:focus-visible,
+.footer-contact-title:focus-visible,
+.footer-contact-text:focus-visible {
+  outline: 3px solid #FE1413;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.desktop-nav a:focus-visible,
+.nav-links a:focus-visible,
+.footer-legal a:focus-visible,
+.footer-social a:focus-visible {
+  outline: 3px solid #FE1413;
+  outline-offset: 2px;
+}
+
+.nav-links li a:focus-visible {
+  background-color: rgba(254, 20, 19, 0.1);
+  outline-offset: 0;
+}
+
+.desktop-nav li:focus-visible {
+  outline: 3px solid #FE1413;
+  outline-offset: -4px;
+}
+
+.menu-toggle:focus-visible,
+.menu-close:focus-visible {
+  border-radius: 8px;
+}
+
+.card:focus-visible {
+  border-color: #FE1413;
+}
+
+.card:focus-visible .card-top .card-year,
+.card:focus-visible .card-top .card-city,
+.card:focus-visible .card-top .card-place {
+  color: #FE1413;
+}
+
 /* ===== GRID SYSTEM ===== */
 /* 6 columns | margin 8px | gutter 16px | stretch */
 .container {
@@ -577,6 +639,21 @@ h4 {
   margin: 0;
 }
 
+/* Career label focus state - wrap both year and detail together */
+.career-label:focus-visible {
+  outline: none;
+}
+
+.career-label:focus-visible .career-label-inner {
+  outline: 3px solid #FE1413;
+  outline-offset: 4px;
+  border-radius: 8px;
+  padding: 4px 8px;
+  box-sizing: content-box;
+  display: inline-block;
+  min-width: max-content;
+}
+
 /* ===== ACTIVE LABEL (2010 at 90°) ===== */
 .career-label.active .career-label-inner {
   transform: translateX(39.5px) translateY(-16px);
@@ -952,6 +1029,13 @@ h4 {
   width: auto;
 }
 
+.footer-logo:focus-visible {
+  outline: 3px solid #FE1413;
+  outline-offset: 4px;
+  border-radius: 4px;
+  padding: 4px;
+}
+
 .footer-contact {
   grid-column: 3 / 7;
   display: flex;
@@ -1011,6 +1095,12 @@ h4 {
   line-height: 16px;
   padding: 16px 0;
   align-self: end;
+}
+
+.footer-copyright:focus-visible {
+  outline: 3px solid #FE1413;
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .footer-copyright p {
@@ -1509,6 +1599,12 @@ h4 {
   .desktop-nav li.nav-hover a {
     font-weight: 700;
     color: #FE1413;
+  }
+
+  /* Focus state for desktop nav */
+  .desktop-nav li a:focus-visible {
+    outline: 3px solid #FE1413;
+    outline-offset: -4px;
   }
 
   /* Red border box that covers the navbar border */

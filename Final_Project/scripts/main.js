@@ -33,6 +33,10 @@ desktopNavItems.forEach(li => {
 const allCards = document.querySelectorAll('.card');
 
 allCards.forEach(card => {
+  card.setAttribute('tabindex', '0');
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-expanded', 'false');
+
   // Hover: red border + red text
   card.addEventListener('mouseenter', () => {
     if (!card.classList.contains('card-open')) {
@@ -42,6 +46,19 @@ allCards.forEach(card => {
 
   card.addEventListener('mouseleave', () => {
     card.classList.remove('card-hover');
+  });
+
+  card.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      card.click();
+    }
+  });
+
+  card.addEventListener('focus', () => {
+    if (!card.classList.contains('card-open')) {
+      card.click();
+    }
   });
 
   // Click: toggle open/close (expand to show detail)
@@ -61,6 +78,7 @@ allCards.forEach(card => {
     // Close all cards in this stack — reset everything
     allStackCards.forEach(c => {
       c.classList.remove('card-open');
+      c.setAttribute('aria-expanded', 'false');
       c.style.height = '';
       c.style.top = '';
     });
@@ -77,6 +95,7 @@ allCards.forEach(card => {
     if (!wasOpen) {
       card.classList.remove('card-hover');
       card.classList.add('card-open');
+      card.setAttribute('aria-expanded', 'true');
 
       // Get the clicked card's position and z-index
       const clickedTop = parseInt(getComputedStyle(card).top) || 0;
@@ -135,6 +154,10 @@ allCards.forEach(card => {
 (() => {
   const wrapper = document.querySelector('.career-circle-wrapper');
   if (!wrapper) return;
+
+  wrapper.setAttribute('tabindex', '0');
+  wrapper.setAttribute('role', 'region');
+  wrapper.setAttribute('aria-label', 'Karriere-Zeitleiste. Mit Pfeiltasten oben und unten durch Jahre navigieren.');
 
   const yearOrder = ['2006', '2007', '2009', '2010', '2014', '2015', '2017', '2018'];
   const stepAngle = 45; // Each year is 45° apart on the circle
@@ -267,6 +290,41 @@ allCards.forEach(card => {
     }
   }, { passive: false });
 
+  wrapper.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+      e.preventDefault();
+      stepForward();
+    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      stepBackward();
+    }
+  });
+
   // Initialize at 2006
   applyState();
+
+  // Add focus listener to career labels to navigate to that year
+  document.querySelectorAll('.career-label').forEach(label => {
+    label.setAttribute('role', 'button');
+    label.setAttribute('aria-label', 'Jahr ' + label.dataset.year);
+    label.addEventListener('focus', () => {
+      const year = label.dataset.year;
+      const yearIndex = yearOrder.indexOf(year);
+      if (yearIndex !== -1 && yearIndex !== currentIndex) {
+        // Calculate shortest path (forward or backward)
+        const forward = (yearIndex - currentIndex + yearOrder.length) % yearOrder.length;
+        const backward = (currentIndex - yearIndex + yearOrder.length) % yearOrder.length;
+        
+        if (forward <= backward) {
+          for (let i = 0; i < forward; i++) {
+            stepForward();
+          }
+        } else {
+          for (let i = 0; i < backward; i++) {
+            stepBackward();
+          }
+        }
+      }
+    });
+  });
 })();
